@@ -22,14 +22,16 @@ def ConnToDb():
 
 def FetchData():
     coll = ConnToDb()
-    # df = pd.DataFrame(coll)
-    doc = list(
-        coll.aggregate([
-        {"$match": {"storeLocation": FILTER}},
-        {"$unwind": "$items"},
-        {"$group": {"_id": "$items.name", "itemsQuantity": {"$sum":  "$items.quantity"}}}]
-    ))
-    return doc
+    location = "London"
+    df = pd.DataFrame(list(coll.aggregate([{"$match": {"storeLocation": FILTER}} ,{"$group": {"_id": "$customer.gender" , "Number": {"$sum": 1}}} ])))
+    colors = ["#0047AB", "#C70039"]
+    number = df["Number"]
+    gender = df["_id"]
+    plt.pie(number, labels= gender, colors= colors, autopct='%1.1f%%')
+    plt.suptitle("Gender per region", fontsize=14)
+    plt.title(location, fontsize=10)
+    plt.show()
+    return df
 
 def makePie(doc):
     ypoints = doc["itemsQuantity"] 
@@ -43,9 +45,8 @@ def main():
     print(sys.argv[1])
     ConnToDb()
     coll = FetchData()
-    salesDF = pd.DataFrame(coll)
-    print(salesDF)
-    makePie(salesDF)
+
+    print(coll)
 
 if __name__ == "__main__":
     main()
