@@ -22,16 +22,6 @@ def ConnToDb():
 
 def FetchData():
     coll = ConnToDb()
-<<<<<<< HEAD
-    # df = pd.DataFrame(coll)
-    doc = list(
-        coll.aggregate([
-        {"$match": {"storeLocation": FILTER}},
-        {"$unwind": "$items"},
-        {"$group": {"_id": "$items.name", "itemsQuantity": {"$sum":  "$items.quantity"}}}]
-    ))
-    return doc
-=======
 
 
     df = pd.DataFrame(list(coll.aggregate([{"$match": {"customer.gender": FILTER}} ,{"$group": {"_id": "$customer.satisfaction" , "Number": {"$sum": 1}}}, {"$sort": {"_id":1}} ])))
@@ -49,7 +39,6 @@ def FetchData():
     plt.show()
     
     return df
->>>>>>> 048d0e5069c7f54521ab46490d07053a3c0e9a02
 
 
 def main(): 

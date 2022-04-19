@@ -33,13 +33,6 @@ def FetchData():
     plt.show()
     return df
 
-def makePie(doc):
-    ypoints = doc["itemsQuantity"] 
-    label = doc["_id"]
-    plt.pie(ypoints, labels=label)
-    plt.title(f"Items Sold Per Region \n{FILTER}")
-    plt.show()
-    print('pie')
 
 def main(): 
     print(sys.argv[1])

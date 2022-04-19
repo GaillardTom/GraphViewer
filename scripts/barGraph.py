@@ -32,7 +32,6 @@ def FetchData():
     return doc
 
 
-def makeAgeGroup(): 
     
 def main(): 
     print(sys.argv[1])
