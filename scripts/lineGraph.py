@@ -24,8 +24,11 @@ def FetchData():
     coll = ConnToDb()
     # df = pd.DataFrame(coll)
     doc = list(
-        coll.aggregate([{"$match": {"storeLocation": FILTER}}])
-    )
+        coll.aggregate([
+        {"$match": {"storeLocation": FILTER}},
+        {"$unwind": "$items"},
+        {"$group": {"_id": "$items.name", "itemsQuantity": {"$sum":  "$items.quantity"}}}]
+    ))
     return doc
 
 

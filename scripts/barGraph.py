@@ -24,11 +24,16 @@ def FetchData():
     coll = ConnToDb()
     # df = pd.DataFrame(coll)
     doc = list(
-        coll.aggregate([{"$match": {"storeLocation": FILTER}}])
-    )
+        coll.aggregate([
+        {"$match": {"storeLocation": FILTER}},
+        {"$unwind": "$customer"},
+        {"$group": {"_id": "$customer.age"}}]
+    ))
     return doc
 
 
+def makeAgeGroup(): 
+    
 def main(): 
     print(sys.argv[1])
     ConnToDb()

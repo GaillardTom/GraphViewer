@@ -24,10 +24,20 @@ def FetchData():
     coll = ConnToDb()
     # df = pd.DataFrame(coll)
     doc = list(
-        coll.aggregate([{"$match": {"storeLocation": FILTER}}])
-    )
+        coll.aggregate([
+        {"$match": {"storeLocation": FILTER}},
+        {"$unwind": "$items"},
+        {"$group": {"_id": "$items.name", "itemsQuantity": {"$sum":  "$items.quantity"}}}]
+    ))
     return doc
 
+def makePie(doc):
+    ypoints = doc["itemsQuantity"] 
+    label = doc["_id"]
+    plt.pie(ypoints, labels=label)
+    plt.title(f"Items Sold Per Region \n{FILTER}")
+    plt.show()
+    print('pie')
 
 def main(): 
     print(sys.argv[1])
@@ -35,6 +45,7 @@ def main():
     coll = FetchData()
     salesDF = pd.DataFrame(coll)
     print(salesDF)
+    makePie(salesDF)
 
 if __name__ == "__main__":
     main()
