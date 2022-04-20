@@ -35,7 +35,6 @@ function connectCallback(callback) {
 }
 
 async function CreateUser(username, password, firstName, lastName) {
-<<<<<<< HEAD
     try{
         const hash = await HashPassword(password);
         const user = {
@@ -53,18 +52,6 @@ async function CreateUser(username, password, firstName, lastName) {
         return false;
     }
    
-=======
-    const hash = await HashPassword(password);
-    const user = {
-      username: username,
-      password: hash,
-      firstName: firstName,
-      lastName: lastName,
-      graph: {},
-    };
-    await database.collection('users').insertOne(user);
-    return "Account created";
->>>>>>> 8a4a810a74990f331dd9adfd15a9044b7b681ed6
 }
 
 async function ConnectGraphDB(userID, graphID){ 
