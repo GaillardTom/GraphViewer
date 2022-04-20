@@ -35,18 +35,29 @@ function connectCallback(callback) {
 }
 
 async function CreateUser(username, password, firstName, lastName) {
-    const hash = await HashPassword(password);
-    const user = new User({
-      username: username,
-      password: hash,
-      firstName: firstName,
-      lastName: lastName,
-      graph: {},
-    });
-    await database.collection('accounts').insertOne(user);
-    return "Account created";
+    try{
+        const hash = await HashPassword(password);
+        const user = {
+          username: username,
+          password: hash,
+          firstName: firstName,
+          lastName: lastName,
+          graph: [],
+        };
+        await database.collection('accounts').insertOne(user);
+        return true;
+    }
+    catch (err){ 
+        console.log(err);
+        return false;
+    }
+   
 }
-  
+
+async function ConnectGraphDB(userID, graphID){ 
+
+}
+
 async function Connect(username,password)
 {
       const user = await database.collection('accounts').findOne({username});

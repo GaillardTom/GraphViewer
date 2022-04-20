@@ -11,10 +11,14 @@ async function ComparePassword(password, hash) {
   return result;
 }
 
-
+function sanitizeString(str) {
+  str = str.replace(/[^a-z0-9áéíóúñü/ \.,_-]/gim, " ");
+  return str.trim();
+}
 
 module.exports = {
    HashPassword,
    ComparePassword,
+   sanitizeString,
  
 }
