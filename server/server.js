@@ -35,7 +35,7 @@ app.post('/register', async(req, res)=>{
 })
 app.get('/graph', async function(req, res) {
         res.status(401).send('User not found');
-    } 
+    
 })
 
 app.get('/graph/:id', async function(req, res) {
