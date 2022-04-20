@@ -36,20 +36,20 @@ function connectCallback(callback) {
 
 async function CreateUser(username, password, firstName, lastName) {
     const hash = await HashPassword(password);
-    const user = new User({
+    const user = {
       username: username,
       password: hash,
       firstName: firstName,
       lastName: lastName,
       graph: {},
-    });
-    await database.collection('accounts').insertOne(user);
+    };
+    await database.collection('users').insertOne(user);
     return "Account created";
 }
   
 async function Connect(username,password)
 {
-      const user = await database.collection('accounts').findOne({username});
+      const user = await database.collection('users').findOne({username});
       if(!user)
       {
           return false;
