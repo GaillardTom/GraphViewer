@@ -96,6 +96,9 @@ async function Connect(username,password)
         {
             return user;
         }
+        else { 
+            return false
+        }
       }
     
 }

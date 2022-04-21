@@ -73,7 +73,7 @@ app.post('/login', async(req,res)=> {
                 res.send('Succesfully logged in').status(200)
             }
             else{ 
-                res.status(404).send('Test')
+                res.status(404).send('Unauthorized')
             }
         } 
         catch (e) { 
