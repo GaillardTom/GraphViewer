@@ -1,20 +1,35 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, MONGO_CLIENT_EVENTS } = require('mongodb');
+const { HashPassword, ComparePassword} = require('./services/services');
 
 // Connection URL
-const URl = process.env.DB_CONNECTION_STRING;
-const client = new MongoClient(URl);
-
+const salesURL = process.env.DB_CONNECTION_STRING;
+const salesClient = new MongoClient(salesURL);
+const usersURL = process.env.DB_USERS_CONNSTRING;
+const userClient = new MongoClient(usersURL);
 // Database
-let database = client.db(process.env.DB_NAME);
-
-async function connect() {
+let salesDatabase = salesClient.db(process.env.DB_NAME);
+let usersDatabase = userClient.db(process.env.DB_NAME2);
+async function connectToSalesDB(dbName) {
     // Use connect method to connect to the server
     try {
-        await client.connect();
-        database = await client.database(dbName);
-        console.log('Connected successfully to local db');
+        await salesDatabase.connect();
+        salesDatabase = await salesDatabase.database(dbName);
+        console.log('Connected successfully to local sales db');
     } catch (err) {
-        console.error('Could not connect to local db')
+        console.error('Could not connect to local sales db')
+        console.error(err);
+    }
+
+    return 'done.';
+}
+
+async function connectToUsersDB(){ 
+    try {
+        await userClient.connect();
+        //usersDatabase = await usersDatabase.database(dbName);
+        console.log('Connected successfully to local users db');
+    } catch (err) {
+        console.error('Could not connect to local users db')
         console.error(err);
     }
 
@@ -23,7 +38,7 @@ async function connect() {
 
 function connectCallback(callback) {
     // Use connect method to connect to the server
-    client.connect((error, res) => {
+    salesClient.connect((error, res) => {
         if (error) {
             console.error('Could not connect to local db')
             console.error(err);
@@ -36,6 +51,7 @@ function connectCallback(callback) {
 
 async function CreateUser(username, password, firstName, lastName) {
     try{
+        //connectToUsersDB()
         const hash = await HashPassword(password);
         const user = {
           username: username,
@@ -44,7 +60,7 @@ async function CreateUser(username, password, firstName, lastName) {
           lastName: lastName,
           graph: [],
         };
-        await database.collection('accounts').insertOne(user);
+        await usersDatabase.collection('users').insertOne(user);
         return true;
     }
     catch (err){ 
@@ -54,15 +70,19 @@ async function CreateUser(username, password, firstName, lastName) {
    
 }
 
+
 async function ConnectGraphDB(userID, graphID){ 
 
 }
 
 async function Connect(username,password)
 {
-      const user = await database.collection('users').findOne({username});
-      if(!user)
+      const user = await usersDatabase.collection('users').findOne({username});
+      console.log('user: ', user);
+      if(user == null)
       {
+        console.log('userNNULL: ', user);
+
           return false;
       }
       const result = await ComparePassword(password, user.password);
@@ -75,9 +95,12 @@ async function Connect(username,password)
 
 
 module.exports = {
-    connect,
+    connect: connectToSalesDB,
     connectCallback,
-    database,
+    database: salesDatabase,
     CreateUser,
-    Connect
+    Connect,
+    connectToUsersDB,
+
+    
 }
