@@ -22,14 +22,13 @@ def ConnToDb():
 
 def FetchData():
     coll = ConnToDb()
-    location = "London"
     df = pd.DataFrame(list(coll.aggregate([{"$match": {"storeLocation": FILTER}} ,{"$group": {"_id": "$customer.gender" , "Number": {"$sum": 1}}} ])))
     colors = ["#0047AB", "#C70039"]
     number = df["Number"]
     gender = df["_id"]
     plt.pie(number, labels= gender, colors= colors, autopct='%1.1f%%')
     plt.suptitle("Gender per region", fontsize=14)
-    plt.title(location, fontsize=10)
+    plt.title(FILTER, fontsize=10)
     plt.show()
     return df
 

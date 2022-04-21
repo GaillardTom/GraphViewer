@@ -19,6 +19,12 @@ def ConnToDb():
     return collection
 
 
+def makeBarGraph(doc): 
+    plt.title('Age By Location')
+    conditions = []
+    changes = {}
+    np.select()
+    
 
 def FetchData():
     coll = ConnToDb()

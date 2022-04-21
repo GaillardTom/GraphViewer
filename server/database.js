@@ -52,16 +52,21 @@ function connectCallback(callback) {
 async function CreateUser(username, password, firstName, lastName) {
     try{
         //connectToUsersDB()
-        const hash = await HashPassword(password);
-        const user = {
-          username: username,
-          password: hash,
-          firstName: firstName,
-          lastName: lastName,
-          graph: [],
-        };
-        await usersDatabase.collection('users').insertOne(user);
-        return true;
+        if(await usersDatabase.collection('users').findOne({username})){
+            return false
+        }else{ 
+            const hash = await HashPassword(password);
+            const user = {
+              username: username,
+              password: hash,
+              firstName: firstName,
+              lastName: lastName,
+              graph: [],
+            };
+            await usersDatabase.collection('users').insertOne(user);
+            return true;
+        }
+        
     }
     catch (err){ 
         console.log(err);
@@ -78,19 +83,21 @@ async function ConnectGraphDB(userID, graphID){
 async function Connect(username,password)
 {
       const user = await usersDatabase.collection('users').findOne({username});
-      console.log('user: ', user);
       if(user == null)
       {
         console.log('userNNULL: ', user);
 
           return false;
       }
-      const result = await ComparePassword(password, user.password);
-      if(result)
-      {
-          return user;
+      else{ 
+        const result = await ComparePassword(password, user.password);
+        console.log('result: ', result);
+        if(result)
+        {
+            return user;
+        }
       }
-      return false;
+    
 }
 
 

@@ -32,13 +32,13 @@ def FetchData():
     plt.suptitle('Satisfaction per gender')
     if (FILTER == "M"): plt.title("Men")
     elif (FILTER == "F"): plt.title("Female")
-    plt.xlabel('Satisfaction')
-    plt.ylabel('yAxis name')
+    plt.xlabel('Satisfaction Rating 1-5')
+    plt.ylabel('Number of Ratings')
     plt.locator_params(axis='x', nbins=5)
     plt.grid(True)
     plt.show()
     
-    return df
+    return df        
 
 
 def main(): 

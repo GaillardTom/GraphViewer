@@ -28,14 +28,19 @@ app.post('/register', async(req, res)=>{
         
         const firstName = req.body.firstName;
         const lastName =req.body.lastName; 
-        //FIND A WAY TO SANITIZE THIS DIORECTLY GOING TO DB 
+        //FIND A WAY TO SANITIZE THIS DIORECTLY GOING    TO DB 
         const username = req.body.username;
         const password = req.body.password; 
        
         try{ 
             //await connectToUsersDB();
-            await CreateUser(username, password, firstName, lastName);
-            res.status(200).send("Succesfully Created")
+            if(await CreateUser(username, password, firstName, lastName)){ 
+                res.status(200).send("Succesfully Created")
+
+            }
+            else{ 
+                res.status(303).send('Username Already taken')
+            }
         }
         catch{ 
             res.status(303).send('Error with DB')
@@ -52,17 +57,27 @@ app.post('/login', async(req,res)=> {
         try{ 
             const username = req.body.username
             const pw = req.body.password
-    
-            if(await Connect(username, pw)){ 
-                console.log('Connect: ', Connect(username, pw));
+            const user = await Connect(username, pw);
+            console.log('user: ', user);
+
+            if(user != false){ 
+                console.log('Connect: ', await Connect(username, pw));
                 //CREATE JWT AND ADD IT TO THE CLIENT SOMEHOW SO THAT LOG MIDDLEWARE CAN CHEKC FOR IT 
+                
+                const payload = { 
+                    username: username,                    
+                }
+                const userJWT =  jwt.sign(payload, process.env.SECRET)
+                console.log('userJWT: ', userJWT);
+                
                 res.send('Succesfully logged in').status(200)
             }
             else{ 
-                res.status(404).send('Unauthorized')
+                res.status(404).send('Test')
             }
         } 
-        catch{ 
+        catch (e) { 
+            console.log(e)
             res.status(404).send('Unauthorized')
         }
         
