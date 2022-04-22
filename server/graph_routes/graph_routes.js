@@ -1,9 +1,11 @@
 const express = require('express');
 const graph = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
 
 graph.get('/graph', async function(req, res) {
    
-        res.status(401).send('User not found');
+        res.status(200).send('Successful');
    
 })
 

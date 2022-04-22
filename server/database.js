@@ -1,4 +1,4 @@
-const { MongoClient, MONGO_CLIENT_EVENTS } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const { HashPassword, ComparePassword} = require('./services/services');
 
 // Connection URL
@@ -85,13 +85,11 @@ async function Connect(username,password)
       const user = await usersDatabase.collection('users').findOne({username});
       if(user == null)
       {
-        console.log('userNNULL: ', user);
 
           return false;
       }
       else{ 
         const result = await ComparePassword(password, user.password);
-        console.log('result: ', result);
         if(result)
         {
             return user;

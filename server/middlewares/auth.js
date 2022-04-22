@@ -14,7 +14,7 @@ async function CheckJWT(req, res, next){
 
     } catch (e) {
         console.error(e);
-        res.status(500).send({ message: "Invalid Token" });
+        res.status(500).send({ message: "Please log in first" });
     }
 }
 

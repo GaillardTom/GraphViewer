@@ -5,24 +5,24 @@ const cors = require('cors');
 const { connectCallback, CreateUser, Connect, connectToUsersDB } = require('./database');
 const upload = multer({ dest: 'uploads/' })
 var jwt = require('jsonwebtoken');
-const auth = require('./middlewares/auth');
+const {CheckJWT} = require('./middlewares/auth');
 var morgan = require('morgan');
 const services = require('./services/services');
 const bodyParser = require('body-parser');
 const app = express();
+const graphRoute = require('./graph_routes/graph_routes')
+
+
+
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
-
-
-
 
 
 app.get('/', function(req, res) {
     res.send('Graph Viewer');
 })
 
-//app.use(auth)
 app.post('/register', async(req, res)=>{ 
     if(req.body.firstName && req.body.lastName && req.body.username && req.body.password){ 
         
@@ -33,7 +33,6 @@ app.post('/register', async(req, res)=>{
         const password = req.body.password; 
        
         try{ 
-            //await connectToUsersDB();
             if(await CreateUser(username, password, firstName, lastName)){ 
                 res.status(200).send("Succesfully Created")
 
@@ -58,19 +57,18 @@ app.post('/login', async(req,res)=> {
             const username = req.body.username
             const pw = req.body.password
             const user = await Connect(username, pw);
-            console.log('user: ', user);
 
             if(user != false){ 
-                console.log('Connect: ', await Connect(username, pw));
                 //CREATE JWT AND ADD IT TO THE CLIENT SOMEHOW SO THAT LOG MIDDLEWARE CAN CHEKC FOR IT 
                 
                 const payload = { 
-                    username: username,                    
+                    username: username,
+                    graph: user.graph                    
                 }
-                const userJWT =  jwt.sign(payload, process.env.SECRET)
-                console.log('userJWT: ', userJWT);
+                const userJWT =  jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' })
                 
-                res.send('Succesfully logged in').status(200)
+                res.json({message: "succefully created",
+                        token: userJWT}).status(200)
             }
             else{ 
                 res.status(404).send('Unauthorized')
@@ -86,30 +84,16 @@ app.post('/login', async(req,res)=> {
         res.send('No Informations').status(400)
     }
 })
-app.get('/graph', async function(req, res) {
-        res.status(401).send('User not found');
-    
-})
 
-app.get('/graph/:id', async function(req, res) {
-   
-        res.status(401).send('User not found');
-    
-})
 
-app.post('/graph', upload.single('graph'), async function(req, res) {
-    const user = await database.collection('users').findOne({ username: req.query.username });
-    if (!user) {
-        res.status(401).send('User not found');
-    } else {
-        user.graph[req.body.id] = req.file.path;
-        await database.collection('users').updateOne({ username: req.query.username }, { $set: { graph: user.graph } });
-        res.send(user.graph);
-    }
-})
+app.use(CheckJWT)
 
-app.delete('/graph/:id', async function(req, res) {
-})
+app.use(graphRoute)
+
+
+
+
+
 
 const PORT = 8080;
 connectCallback(() => {
