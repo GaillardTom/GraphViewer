@@ -1,5 +1,6 @@
 import sys 
 from pydoc import doc
+from pkg_resources import CHECKOUT_DIST
 import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -32,10 +33,35 @@ def FetchData():
     doc = list(
         coll.aggregate([
         {"$match": {"storeLocation": FILTER}},
-        {"$unwind": "$customer"},
-        {"$group": {"_id": "$customer.age"}}]
+        {"$unwind": "$customer"}, {"$group": { "_id": "$customer.age", "count": {"$sum": 1}}}
+        ]
     ))
     return doc
+
+def ReturnGoodAge(df): 
+    
+    print(df)
+    ageRange = { (1,18): 0, (18, 30): 0, (30, 60): 0, (60, 1000): 0}
+    print('test', ageRange[(1, 18)])
+    
+    #ages = []
+    #for i in df: 
+     #   ages.append(i)
+   
+    
+    choices = [[18], [30], [60], [1000] ] 
+    conditions = [ ( df["_id"] < 18),
+                    ( df["_id"] < 30), 
+                     (df["_id"] < 60),
+                     (df["_id"] < 1000) 
+                    ]
+    ageRange = np.select(choices, conditions)
+    print(ageRange)
+    return ageRange
+
+
+    
+    
 
 
     
@@ -44,7 +70,8 @@ def main():
     ConnToDb()
     coll = FetchData()
     salesDF = pd.DataFrame(coll)
-    print(salesDF)
+    
+    ReturnGoodAge(salesDF)
 
 if __name__ == "__main__":
     main()
