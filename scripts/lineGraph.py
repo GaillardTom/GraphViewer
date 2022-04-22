@@ -7,7 +7,7 @@ import numpy as np
 
 
 FILTER = sys.argv[1]
-
+TITLE = sys.argv[2]
 
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -29,7 +29,7 @@ def FetchData():
     yAxis = np.array(df["Number"])
 
     plt.plot(xAxis,yAxis)
-    plt.suptitle('Satisfaction per gender')
+    plt.suptitle(TITLE)
     if (FILTER == "M"): plt.title("Men")
     elif (FILTER == "F"): plt.title("Female")
     plt.xlabel('Satisfaction Rating 1-5')

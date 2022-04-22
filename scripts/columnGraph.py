@@ -7,7 +7,7 @@ import numpy as np
 
 
 FILTER = sys.argv[1]
-
+TITLE  = sys.argv[2]
 
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -36,7 +36,7 @@ def makePie(doc):
     label = doc["_id"]
     plt.bar(label, ypoints)
     plt.xticks(rotation=45)
-    plt.title(f"Items Sold Per Region \n{FILTER}")
+    plt.title(f"{TITLE} \n{FILTER}")
     plt.show()
 
 def main(): 
