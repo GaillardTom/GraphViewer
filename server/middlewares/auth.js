@@ -9,7 +9,8 @@ async function CheckJWT(req, res, next){
     try {
 
         const decoded = jwt.verify(token, process.env.SECRET);
-        req.user = decoded.user;
+        console.log('decoded: ', decoded);
+        console.log('req.user: ', req.user);
         next();
 
     } catch (e) {
@@ -18,6 +19,18 @@ async function CheckJWT(req, res, next){
     }
 }
 
+async function GetUserIDWithJWT(token){ 
+    try{ 
+        const decoded = jwt.verify(token, process.env.SECRET);
+        console.log('decoded: ', decoded);
+        return decoded._id
+
+    }catch(e){ 
+        console.error(e);
+        return false
+    }
+}
+
 module.exports = { 
-    CheckJWT,
+    CheckJWT,GetUserIDWithJWT
 }

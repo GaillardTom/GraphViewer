@@ -64,7 +64,8 @@ app.post('/login', async(req,res)=> {
                 
                 const payload = { 
                     username: username,
-                    graph: user.graph                    
+                    graph: user.graph,
+                    _id:   user._id                 
                 }
                 const userJWT =  jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' })
                 
@@ -86,10 +87,10 @@ app.post('/login', async(req,res)=> {
     }
 })
 
-
+//AUTH MIDDLEWARE
 app.use(CheckJWT)
 
-app.use(graphRoute)
+app.use('/graph', graphRoute)
 
 
 

@@ -1,4 +1,4 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient, ObjectId, ObjectID } = require('mongodb');
 const { HashPassword, ComparePassword} = require('./services/services');
 
 // Connection URL
@@ -6,25 +6,9 @@ const salesURL = process.env.DB_CONNECTION_STRING;
 const salesClient = new MongoClient(salesURL);
 const usersURL = process.env.DB_USERS_CONNSTRING;
 const userClient = new MongoClient(usersURL);
-const graphURL = process.env.DB_GRAPH_CONNSTRING;
-const graphClient = new MongoClient(graphURL);
 // Database
 let salesDatabase = salesClient.db(process.env.DB_NAME);
 let usersDatabase = userClient.db(process.env.DB_NAME2);
-let graphDatabase = graphClient.db(process.env.DB_NAME3);
-async function connectToSalesDB(dbName) {
-    // Use connect method to connect to the server
-    try {
-        await salesDatabase.connect();
-        salesDatabase = await salesDatabase.database(dbName);
-        console.log('Connected successfully to local sales db');
-    } catch (err) {
-        console.error('Could not connect to local sales db')
-        console.error(err);
-    }
-
-    return 'done.';
-}
 
 async function connectToUsersDB(){ 
     try {
@@ -39,7 +23,7 @@ async function connectToUsersDB(){
     return 'done.';
 }
 
-function connectCallback(callback) {
+function connectToSalesCallback(callback) {
     // Use connect method to connect to the server
     salesClient.connect((error, res) => {
         if (error) {
@@ -93,20 +77,6 @@ async function FindUser(username){
         console.log(err);
         return false;
     }
-}
-
-async function ConnectGraphDB(){ 
- // Use connect method to connect to the server
- try {
-    await usersDatabase.connect();
-   // graphDatabase = await usersDatabase.database(dbName);
-    console.log('Connected successfully to local graph db');
-} catch (err) {
-    console.error('Could not connect to local graph db')
-    console.error(err);
-}
-
-return 'done.';
 }
 
 async function Connect(username,password)
@@ -163,15 +133,47 @@ async function AddGraphToUsers(username, graph){
     
 }
 
+async function GetGraphLocation(graphID){ 
+
+    graphID = ObjectId(graphID)
+    try{ 
+        const userGraph = await usersDatabase.collection('graph').findOne({_id: graphID})
+        if(userGraph != null){ 
+            console.log('userGraph: ', userGraph);
+            return userGraph.graphLocation
+        }
+        else{ 
+            return false
+        }
+        
+    }
+    catch (e ){ 
+        console.error(e);
+        return false
+    }
+}
+async function GetAllGraph(userID){ 
+    try { 
+        
+        const test = await ObjectId(userID)
+        const userGraphs = await usersDatabase.collection('graph').find({userID: test}).toArray()
+        console.log('userGraphs: ', userGraphs);
+        return userGraphs
+    }catch(e){ 
+        console.error(e);
+        return false
+    }
+}
 module.exports = {
-    connect: connectToSalesDB,
-    connectCallback,
+    connectCallback: connectToSalesCallback,
     database: salesDatabase,
-    graphDatabase: graphDatabase,
     usersDatabase: usersDatabase,
     CreateUser,
     Connect,
     connectToUsersDB,
     AddGraphToUsers,
-    FindUserByID 
+    FindUserByID,
+    GetGraphLocation,
+    FindUser,
+    GetAllGraph
 }
