@@ -52,6 +52,7 @@ app.post('/register', async(req, res)=>{
 
 
 app.post('/login', async(req,res)=> { 
+    //print(req.body.password)
     if(req.body.username && req.body.password){
         try{ 
             const username = req.body.username
@@ -81,7 +82,7 @@ app.post('/login', async(req,res)=> {
         
     }
     else{ 
-        res.send('No Informations').status(400)
+        res.status(400).send('No Informations')
     }
 })
 

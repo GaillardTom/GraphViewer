@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const { HashPassword, ComparePassword} = require('./services/services');
 
 // Connection URL
@@ -77,7 +77,6 @@ async function CreateUser(username, password, firstName, lastName) {
 
 
 async function ConnectGraphDB(userID, graphID){ 
-
 }
 
 async function Connect(username,password)
@@ -100,7 +99,37 @@ async function Connect(username,password)
       }
     
 }
+async function FindUserByID(id){ 
+    try{ 
+        id = ObjectId(id)
+        user = await usersDatabase.findOne({_id: id})
+        if (user != null){ 
+            return user
+        }else {
+            return false
+        }
+        
+    }
+    catch(e){ 
+        console.error('e: ', e);
+        return false
+    }
+    
+}
+async function AddGraphToUsers(username, graph){ 
 
+    try{ 
+        await usersDatabase.collection('graph').updateOne({ username: username }, { $push: { graph: graph } });
+        return true
+
+    }
+    catch(e){ 
+        console.log(e);
+        return false
+    }
+
+    
+}
 
 module.exports = {
     connect: connectToSalesDB,
@@ -109,6 +138,6 @@ module.exports = {
     CreateUser,
     Connect,
     connectToUsersDB,
-
-    
+    AddGraphToUsers,
+    FindUserByID 
 }
