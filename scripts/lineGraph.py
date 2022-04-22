@@ -38,14 +38,14 @@ def FetchData():
     plt.grid(True)
     plt.show()
     
-    return df        
+    return plt        
 
 
 def main(): 
     print(sys.argv[1])
     ConnToDb()
     genderDf = FetchData()
-    print(genderDf)
+    genderDf.show()
 
 
 if __name__ == "__main__":

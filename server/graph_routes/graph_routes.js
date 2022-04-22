@@ -1,11 +1,11 @@
 const express = require('express');
+const { ObjectId } = require('mongodb');
 const graph = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
-
 graph.get('/graph', async function(req, res) {
    
-        res.status(200).send('Successful');
+        res.status(401).send('User not found');
    
 })
 
@@ -15,22 +15,26 @@ graph.get('/graph/:id', async function(req, res) {
     
 })
 
+/*
 graph.post('/graph', upload.single('graph'), async function(req, res) {
-    
     let today = new Date().toISOString().slice(0, 10)
-    
+     
         user.graph[req.body.id] = req.file.path;
 
-        await database.collection('graph').updateOne({ username: req.query.username }, { $push: { graph: user.graph } });
+        await database.collection('graph').insertOne({graphLocation: req.file.path, type: "", creationDate: today});
         res.send(user.graph);
     
 })
-
+*/
 graph.delete('/graph/:id', async function(req, res) {
-    const user = await database.collection('users').findOne({ username: req.query.username });
-    delete user.graph[req.params.id];
-    await database.collection('users').removeOne({graph: user.graph.id});
-    res.send("Graph deleted").status(200);
+        const ids = ObjectId(id);
+        if (ids) {
+            await database.collection('graph').deleteOne({_id: ids});
+            res.send('Graph deleted').status(200);
+        }
+        else {
+                res.send('Graph not found').status(404);
+        }
 })
 
 
