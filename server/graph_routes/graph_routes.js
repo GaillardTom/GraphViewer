@@ -31,16 +31,24 @@ graph.get('/', async function (req, res) {
 graph.get('/:id', async function (req, res) {
 
         if(req.params.id){ 
-                const location = await GetGraphLocation(req.params.id)
-                console.log('location: ', location);
-                if(location.length >= 0){ 
-                        res.status(200).json({graphID: req.params.graphID, location: location})
-
+                const userGraph = await GetGraphLocation(req.params.id)
+                const location = userGraph.graphLocation
+                const userID = await GetUserIDWithJWT(req.header('token'))
+                console.log('userID: ', userID);
+                console.log('userGraph.userID: ', userGraph.userID);
+                if(userID == userGraph.userID){
+                        
+                        if(location.length >= 0){ 
+                                res.status(200).json({graphID: req.params.id, location: location, title: userGraph.title})
+        
+                        }
+                        else{ 
+                                res.status(404).send('No Graph Found')
+                        }
                 }
                 else{ 
-                        res.status(404).send('No Graph Found')
+                        res.status(404).send('No rights to access this graph')
                 }
-
         }
         else( 
                 res.status(404).send('No Graph ID Specified')

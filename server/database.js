@@ -133,14 +133,16 @@ async function AddGraphToUsers(username, graph){
     
 }
 
-async function GetGraphLocation(graphID){ 
+async function GetGraphLocation(graphID, userID){ 
 
     graphID = ObjectId(graphID)
+    userID = ObjectId(userID)
     try{ 
-        const userGraph = await usersDatabase.collection('graph').findOne({_id: graphID})
+        const userGraph = await usersDatabase.collection('graph').findOne({_id: graphID}, {userID:userID})
+        console.log('userGraph: ', userGraph);
         if(userGraph != null){ 
             console.log('userGraph: ', userGraph);
-            return userGraph.graphLocation
+            return userGraph
         }
         else{ 
             return false

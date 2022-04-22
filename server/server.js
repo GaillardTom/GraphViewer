@@ -89,12 +89,8 @@ app.post('/login', async(req,res)=> {
 
 //AUTH MIDDLEWARE
 app.use(CheckJWT)
-
+//GRAPH ROUTE 
 app.use('/graph', graphRoute)
-
-
-
-
 
 
 const PORT = 8080;
