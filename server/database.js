@@ -7,11 +7,11 @@ const salesClient = new MongoClient(salesURL);
 const usersURL = process.env.DB_USERS_CONNSTRING;
 const userClient = new MongoClient(usersURL);
 const graphURL = process.env.DB_GRAPH_CONNSTRING;
-const graphClient = new MongoClient(graphURL);
+
 // Database
 let salesDatabase = salesClient.db(process.env.DB_NAME);
 let usersDatabase = userClient.db(process.env.DB_NAME2);
-let graphDatabase = graphClient.db(process.env.DB_NAME3);
+
 async function connectToSalesDB(dbName) {
     // Use connect method to connect to the server
     try {
@@ -137,7 +137,6 @@ module.exports = {
     connect: connectToSalesDB,
     connectCallback,
     database: salesDatabase,
-    graphDatabase: graphDatabase,
     usersDatabase: usersDatabase,
     CreateUser,
     Connect,

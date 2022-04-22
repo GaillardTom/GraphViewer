@@ -3,13 +3,13 @@ const { ObjectId } = require('mongodb');
 const graph = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
-graph.get('/graph', async function(req, res) {
+graph.get('/', async function(req, res) {
    
         res.status(401).send('User not found');
    
 })
 
-graph.get('/graph/:id', async function(req, res) {
+graph.get('/:id', async function(req, res) {
    
         res.status(401).send('User not found');
     
@@ -26,7 +26,7 @@ graph.post('/graph', upload.single('graph'), async function(req, res) {
     
 })
 */
-graph.delete('/graph/:id', async function(req, res) {
+graph.delete('/:id', async function(req, res) {
         const ids = ObjectId(id);
         if (ids) {
             await database.collection('graph').deleteOne({_id: ids});
