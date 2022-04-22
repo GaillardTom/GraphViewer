@@ -30,15 +30,15 @@ def FetchData():
     plt.suptitle("Gender per region", fontsize=14)
     plt.title(FILTER, fontsize=10)
     plt.show()
-    return df
+    return plt
 
 
 def main(): 
     print(sys.argv[1])
     ConnToDb()
-    coll = FetchData()
+    plt = FetchData()
 
-    print(coll)
+    plt.show()
 
 if __name__ == "__main__":
     main()

@@ -6,9 +6,12 @@ const salesURL = process.env.DB_CONNECTION_STRING;
 const salesClient = new MongoClient(salesURL);
 const usersURL = process.env.DB_USERS_CONNSTRING;
 const userClient = new MongoClient(usersURL);
+const graphURL = process.env.DB_GRAPH_CONNSTRING;
+const graphClient = new MongoClient(graphURL);
 // Database
 let salesDatabase = salesClient.db(process.env.DB_NAME);
 let usersDatabase = userClient.db(process.env.DB_NAME2);
+let graphDatabase = graphClient.db(process.env.DB_NAME3);
 async function connectToSalesDB(dbName) {
     // Use connect method to connect to the server
     try {
@@ -75,8 +78,35 @@ async function CreateUser(username, password, firstName, lastName) {
    
 }
 
+async function FindUser(username){ 
+    try{
+        const user = await usersDatabase.collection('users').findOne({username});
+        if(user == null)
+        {
+            return false;
+        }
+        else{ 
+            return user;
+        }
+    }
+    catch (err){ 
+        console.log(err);
+        return false;
+    }
+}
 
-async function ConnectGraphDB(userID, graphID){ 
+async function ConnectGraphDB(){ 
+ // Use connect method to connect to the server
+ try {
+    await usersDatabase.connect();
+   // graphDatabase = await usersDatabase.database(dbName);
+    console.log('Connected successfully to local graph db');
+} catch (err) {
+    console.error('Could not connect to local graph db')
+    console.error(err);
+}
+
+return 'done.';
 }
 
 async function Connect(username,password)
@@ -84,11 +114,13 @@ async function Connect(username,password)
       const user = await usersDatabase.collection('users').findOne({username});
       if(user == null)
       {
+        console.log('userNNULL: ', user);
 
           return false;
       }
       else{ 
         const result = await ComparePassword(password, user.password);
+        console.log('result: ', result);
         if(result)
         {
             return user;
@@ -135,6 +167,8 @@ module.exports = {
     connect: connectToSalesDB,
     connectCallback,
     database: salesDatabase,
+    graphDatabase: graphDatabase,
+    usersDatabase: usersDatabase,
     CreateUser,
     Connect,
     connectToUsersDB,
