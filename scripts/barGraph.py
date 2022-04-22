@@ -47,14 +47,13 @@ def ReturnGoodAge(df):
     #ages = []
     #for i in df: 
      #   ages.append(i)
-   
+   #TODO AGE RANGE WITH THE AGE OF THE DATAFRAME !! 
     
     choices = [[18], [30], [60], [1000] ] 
     conditions = [ ( df["_id"] < 18),
                     ( df["_id"] < 30), 
                      (df["_id"] < 60),
-                     (df["_id"] < 1000) 
-                    ]
+                     (df["_id"] < 1000) ]
     ageRange = np.select(choices, conditions)
     print(ageRange)
     return ageRange
