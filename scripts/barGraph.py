@@ -66,7 +66,7 @@ def MakeBarGraph(ageRange) :
     plt.xlabel("Values")
 
     #plt.show()
-    plt.savefig(r'D:\Winter2022\GraphViewer\server\uploads\temp.png')
+    plt.savefig(r'D:\Winter2022\GraphViewer\server\uploads')
     #ages = []
     #for i in df: 
      #   ages.append(i)

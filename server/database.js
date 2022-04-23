@@ -121,7 +121,7 @@ async function FindUserByID(id){
 async function AddGraphToUsers(username, graph){ 
 
     try{ 
-        await usersDatabase.collection('graph').updateOne({ username: username }, { $push: { graph: graph } });
+        await usersDatabase.collection('users').updateOne({ username: username }, { $push: { graph: graph } });
         return true
 
     }

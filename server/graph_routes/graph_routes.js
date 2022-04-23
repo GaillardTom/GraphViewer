@@ -5,10 +5,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
 const services = require('../services/services')
 const {GetUserIDWithJWT} = require('../middlewares/auth')
-const {connectToSalesDB,
-        connectCallback,
-        database: salesDatabase,
-        AddGraphToUsers, FindUserByID,GetGraphLocation,GetAllGraph } = require('../database')
+const {GetGraphLocation, GetAllGraph } = require('../database')
 graph.get('/', async function (req, res) {
 
         if(req.header("token")){ 
