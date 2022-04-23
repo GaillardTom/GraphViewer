@@ -65,7 +65,7 @@ graph.post('/barGraph', async(req, res) => {
         // spawn new child process to call the python script
         const python = await spawn('python', ['D:\\Winter2022\\GraphViewer\\scripts\\barGraph.py', filter, title, user]);
         res.status(200).send('CREATED')
-
+        //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
         // collect data from script
         python.stdout.on('data', function (data) {
                 console.log('data: ', data.toString());
@@ -87,9 +87,12 @@ graph.post('/', upload.single('graph'), async function (req, res) {
 
 })
 graph.delete('/:id', async function (req, res) {
-        const ids = ObjectId(id);
+        const ids = ObjectId(req.params.id);
+        const userID = await GetUserIDWithJWT(req.header('token'))
         if (ids) {
-                await database.collection('graph').deleteOne({ _id: ids });
+
+                // CREATE A FUNCTION THAT TAKES THIS AND PUT IT IN DB NO DATABASE ON ROUTES GADDEM FAIS 30 FOIS JE LE DIT CALISS
+                await database.collection('graph').deleteOne({ _id: ids, userID: ObjectId(userID) });
                 res.send('Graph deleted').status(200);
         }
         else {
