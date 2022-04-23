@@ -22,14 +22,14 @@ def ConnToDb():
     return collection
 
 def InsertToGraphDB(): 
-    e = datetime.datetime.now()
+    e = datetime.datetime.utcnow()
     global path
     myClient = pymongo.MongoClient(
          "mongodb://localhost:27017"
     )
     mydb = myClient["graphViewerUsers"]
     coll = mydb['graph']
-    test = coll.insert_one({"userID": USERID, "title": TITLE, "timeCreated": e.strftime("%Y-%m-%d %H:%M:%S")})
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "timeCreated": e})
     print(test.inserted_id)
     path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
     return ObjectId(test.inserted_id), coll
