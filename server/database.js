@@ -103,7 +103,7 @@ async function Connect(username,password)
 }
 async function FindUserByID(id){ 
     try{ 
-        id = ObjectId(id)
+        id = await ObjectId(id)
         user = await usersDatabase.findOne({_id: id})
         if (user != null){ 
             return user
@@ -117,6 +117,25 @@ async function FindUserByID(id){
         return false
     }
     
+}
+async function DeleteGraphOfUser(graphID, userID){ 
+
+    try{
+        const result = await usersDatabase.collection('graph').deleteOne({ _id: graphID, userID: userID });
+        if(result.deletedCount === 1){ 
+            return true
+
+        }else{
+            return false 
+        }
+
+    }catch(e){ 
+        console.error(e)
+        return false
+
+    }
+
+
 }
 async function AddGraphToUsers(username, graph){ 
 
@@ -135,8 +154,8 @@ async function AddGraphToUsers(username, graph){
 
 async function GetGraphLocation(graphID, userID){ 
 
-    graphID = ObjectId(graphID)
-    userID = ObjectId(userID)
+    graphID = await ObjectId(graphID)
+    userID = await ObjectId(userID)
     try{ 
         const userGraph = await usersDatabase.collection('graph').findOne({_id: graphID}, {userID:userID})
         console.log('userGraph: ', userGraph);
@@ -177,5 +196,6 @@ module.exports = {
     FindUserByID,
     GetGraphLocation,
     FindUser,
-    GetAllGraph
+    GetAllGraph,
+    DeleteGraphOfUser
 }

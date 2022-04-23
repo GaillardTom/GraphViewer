@@ -4,10 +4,13 @@ import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from bson.objectid import ObjectId
 
 
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
+USERID = ObjectId(sys.argv[3])
+global path
 
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -18,10 +21,22 @@ def ConnToDb():
     collection = mydb["sales"]
     return collection
 
+def InsertToGraphDB(): 
+    global path
+    myClient = pymongo.MongoClient(
+         "mongodb://localhost:27017"
+    )
+    mydb = myClient["graphViewerUsers"]
+    coll = mydb['graph']
+    test = coll.insert_one({"userID": USERID, "title": TITLE})
+    print(test.inserted_id)
+    path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
+    return ObjectId(test.inserted_id), coll
+    
 
-
-def FetchData():
+def FetchData(userID, userColl):
     coll = ConnToDb()
+    global path
 
 
     df = pd.DataFrame(list(coll.aggregate([{"$match": {"customer.gender": FILTER}} ,{"$group": {"_id": "$customer.satisfaction" , "Number": {"$sum": 1}}}, {"$sort": {"_id":1}} ])))
@@ -36,16 +51,18 @@ def FetchData():
     plt.ylabel('Number of Ratings')
     plt.locator_params(axis='x', nbins=5)
     plt.grid(True)
-    plt.show()
+    updateDoc = userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
+    print(updateDoc.matched_count)
+    plt.savefig(path)
     
-    return plt        
+    
 
 
 def main(): 
     print(sys.argv[1])
     ConnToDb()
-    genderDf = FetchData()
-    genderDf.show()
+    userID, userColl = InsertToGraphDB()
+    FetchData(userID, userColl=userColl)
 
 
 if __name__ == "__main__":
