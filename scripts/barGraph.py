@@ -5,11 +5,13 @@ import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from bson.objectid import ObjectId
 
+global path
 
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
-
+USERID = ObjectId(sys.argv[3])
 def ConnToDb():
     myClient = pymongo.MongoClient(
         "mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true"
@@ -18,8 +20,18 @@ def ConnToDb():
 
     collection = mydb["sales"]
     return collection
-
-
+def InsertToGraphDB(): 
+    global path
+    myClient = pymongo.MongoClient(
+         "mongodb://localhost:27017"
+    )
+    mydb = myClient["graphViewerUsers"]
+    coll = mydb['graph']
+    test = coll.insert_one({"userID": USERID, "title": TITLE})
+    print(test.inserted_id)
+    path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
+    return ObjectId(test.inserted_id), coll
+    
 def makeBarGraph(doc): 
     plt.title('Age By Location')
     conditions = []
@@ -55,18 +67,22 @@ def ReturnGoodAge(df):
             ageRange["60+"] += count['count']
     return ageRange
 
-def MakeBarGraph(ageRange) :
+def MakeBarGraph(ageRange, objectID, coll) :
+    global path
+    print(path)
     print(ageRange)
     plt.suptitle(TITLE)
     plt.title(FILTER)
     ages = list(ageRange.keys())
     values = list(ageRange.values())
-    plt.barh(ages, values)
     plt.ylabel("Age Range")
     plt.xlabel("Values")
+    plt.barh(ages, values)
 
-    #plt.show()
-    plt.savefig(r'D:\Winter2022\GraphViewer\server\uploads')
+    updateDoc = coll.update_one({"_id": objectID}, {"$set": {"graphLocation": path}})
+    print(updateDoc.matched_count)
+    plt.savefig(path)    #plt.show()
+    #plt.savefig(path)
     #ages = []
     #for i in df: 
      #   ages.append(i)
@@ -97,6 +113,7 @@ def main():
     salesDF = pd.DataFrame(coll)
     
     ageRange = ReturnGoodAge(salesDF)
-    MakeBarGraph(ageRange)
+    userID, coll = InsertToGraphDB()
+    MakeBarGraph(ageRange,userID, coll)
 if __name__ == "__main__":
     main()
