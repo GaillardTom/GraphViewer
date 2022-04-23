@@ -10,7 +10,7 @@ async function CheckJWT(req, res, next){
 
         const decoded = jwt.verify(token, process.env.SECRET);
         console.log('decoded: ', decoded);
-        console.log('req.user: ', req.user);
+        ///console.log('req.user: ', req.user);
         next();
 
     } catch (e) {
