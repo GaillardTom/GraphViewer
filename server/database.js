@@ -1,4 +1,4 @@
-const { MongoClient, ObjectId, ObjectID } = require('mongodb');
+const { MongoClient, ObjectId} = require('mongodb');
 const { HashPassword, ComparePassword} = require('./services/services');
 
 // Connection URL
@@ -103,7 +103,7 @@ async function Connect(username,password)
 }
 async function FindUserByID(id){ 
     try{ 
-        id = ObjectId(id)
+        id = await ObjectId(id)
         user = await usersDatabase.findOne({_id: id})
         if (user != null){ 
             return user
@@ -118,10 +118,29 @@ async function FindUserByID(id){
     }
     
 }
+async function DeleteGraphOfUser(graphID, userID){ 
+
+    try{
+        const result = await usersDatabase.collection('graph').deleteOne({ _id: graphID, userID: userID });
+        if(result.deletedCount === 1){ 
+            return true
+
+        }else{
+            return false 
+        }
+
+    }catch(e){ 
+        console.error(e)
+        return false
+
+    }
+
+
+}
 async function AddGraphToUsers(username, graph){ 
 
     try{ 
-        await usersDatabase.collection('graph').updateOne({ username: username }, { $push: { graph: graph } });
+        await usersDatabase.collection('users').updateOne({ username: username }, { $push: { graph: graph } });
         return true
 
     }
@@ -135,8 +154,8 @@ async function AddGraphToUsers(username, graph){
 
 async function GetGraphLocation(graphID, userID){ 
 
-    graphID = ObjectId(graphID)
-    userID = ObjectId(userID)
+    graphID = await ObjectId(graphID)
+    userID = await ObjectId(userID)
     try{ 
         const userGraph = await usersDatabase.collection('graph').findOne({_id: graphID}, {userID:userID})
         console.log('userGraph: ', userGraph);
@@ -154,11 +173,17 @@ async function GetGraphLocation(graphID, userID){
         return false
     }
 }
+async function GetGraphsByType(userID, type){ 
+    userID = await ObjectId(userID)
+    const userGraphs = await usersDatabase.collection('graph').find({userID: userID, type: type}).toArray()
+    console.log(userGraphs)
+    return userGraphs
+}
 async function GetAllGraph(userID){ 
     try { 
         
-        const test = await ObjectId(userID)
-        const userGraphs = await usersDatabase.collection('graph').find({userID: test}).toArray()
+        const id = await ObjectId(userID)
+        const userGraphs = await usersDatabase.collection('graph').find({userID: id}).toArray()
         console.log('userGraphs: ', userGraphs);
         return userGraphs
     }catch(e){ 
@@ -177,5 +202,7 @@ module.exports = {
     FindUserByID,
     GetGraphLocation,
     FindUser,
-    GetAllGraph
+    GetAllGraph,
+    DeleteGraphOfUser,
+    GetGraphsByType
 }

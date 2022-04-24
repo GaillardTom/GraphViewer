@@ -4,10 +4,14 @@ import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
+from bson.objectid import ObjectId
+import datetime
 
 FILTER = sys.argv[1]
-
+TITLE = sys.argv[2]
+USERID = ObjectId(sys.argv[3])
+TYPE = "line"
+global path
 
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -18,10 +22,23 @@ def ConnToDb():
     collection = mydb["sales"]
     return collection
 
+def InsertToGraphDB():  
+    e = datetime.datetime.utcnow()
+    global path
+    myClient = pymongo.MongoClient(
+         "mongodb://localhost:27017"
+    )
+    mydb = myClient["graphViewerUsers"]
+    coll = mydb['graph']
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
+    print(test.inserted_id)
+    path = f'../server/uploads/{test.inserted_id}.png'
+    return ObjectId(test.inserted_id), coll
+    
 
-
-def FetchData():
+def FetchData(userID, userColl):
     coll = ConnToDb()
+    global path
 
 
     df = pd.DataFrame(list(coll.aggregate([{"$match": {"customer.gender": FILTER}} ,{"$group": {"_id": "$customer.satisfaction" , "Number": {"$sum": 1}}}, {"$sort": {"_id":1}} ])))
@@ -29,23 +46,23 @@ def FetchData():
     yAxis = np.array(df["Number"])
 
     plt.plot(xAxis,yAxis)
-    plt.suptitle('Satisfaction per gender')
+    plt.suptitle(TITLE)
     if (FILTER == "M"): plt.title("Men")
     elif (FILTER == "F"): plt.title("Female")
     plt.xlabel('Satisfaction Rating 1-5')
     plt.ylabel('Number of Ratings')
     plt.locator_params(axis='x', nbins=5)
     plt.grid(True)
-    plt.show()
+    updateDoc = userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
+    plt.savefig(path)
     
-    return plt        
+    
 
 
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
-    genderDf = FetchData()
-    genderDf.show()
+    userID, userColl = InsertToGraphDB()
+    FetchData(userID, userColl=userColl)
 
 
 if __name__ == "__main__":

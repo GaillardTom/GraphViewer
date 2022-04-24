@@ -5,11 +5,16 @@ import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from bson.objectid import ObjectId
+import datetime
 
+
+global path
 
 FILTER = sys.argv[1]
-
-
+TITLE = sys.argv[2]
+USERID = ObjectId(sys.argv[3])
+TYPE = "bar"
 def ConnToDb():
     myClient = pymongo.MongoClient(
         "mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true"
@@ -18,14 +23,21 @@ def ConnToDb():
 
     collection = mydb["sales"]
     return collection
+def InsertToGraphDB(): 
+    global path
+    e = datetime.datetime.utcnow()
 
+    myClient = pymongo.MongoClient(
+         "mongodb://localhost:27017"
+    )
+    mydb = myClient["graphViewerUsers"]
+    coll = mydb['graph']
 
-def makeBarGraph(doc): 
-    plt.title('Age By Location')
-    conditions = []
-    changes = {}
-    np.select()
     
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
+    print(test.inserted_id)
+    path = f'../server/uploads/{test.inserted_id}.png'
+    return ObjectId(test.inserted_id), coll
 
 def FetchData():
     coll = ConnToDb()
@@ -40,37 +52,39 @@ def FetchData():
 
 def ReturnGoodAge(df): 
     
-    print(df)
-    ageRange = { (1,18): 0, (18, 30): 0, (30, 60): 0, (60, 1000): 0}
-    print('test', ageRange[(1, 18)])
+    ageRange = { "1-18": 0, "18-30": 0, "30-60": 0, "60+": 0}
     
-    #ages = []
-    #for i in df: 
-     #   ages.append(i)
-   #TODO AGE RANGE WITH THE AGE OF THE DATAFRAME !! 
-    
-    choices = [[18], [30], [60], [1000] ] 
-    conditions = [ ( df["_id"] < 18),
-                    ( df["_id"] < 30), 
-                     (df["_id"] < 60),
-                     (df["_id"] < 1000) ]
-    ageRange = np.select(choices, conditions)
-    print(ageRange)
+    for age, count in df.iterrows():  
+        if(count['_id'] < 18 and count['_id'] >= 1 ):
+            ageRange["1-18"] += count['count']
+        elif(count['_id']< 30 and count['_id'] >= 18):
+            ageRange["18-30"] += count['count']
+        elif(count['_id'] < 60 and count['_id'] >= 30):
+            ageRange["30-60"] += count['count']
+        elif(count['_id'] >= 60):
+            ageRange["60+"] += count['count']
     return ageRange
 
+def MakeBarGraph(ageRange, objectID, coll) :
+    global path
+    plt.suptitle(TITLE)
+    plt.title(FILTER)
+    ages = list(ageRange.keys())
+    values = list(ageRange.values())
+    plt.ylabel("Age Range")
+    plt.xlabel("Values")
+    plt.barh(ages, values)
 
-    
-    
-
-
+    updateDoc = coll.update_one({"_id": objectID}, {"$set": {"graphLocation": path}})
+    plt.savefig(path)
     
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
     coll = FetchData()
     salesDF = pd.DataFrame(coll)
     
-    ReturnGoodAge(salesDF)
-
+    ageRange = ReturnGoodAge(salesDF)
+    userID, coll = InsertToGraphDB()
+    MakeBarGraph(ageRange,userID, coll)
 if __name__ == "__main__":
     main()
