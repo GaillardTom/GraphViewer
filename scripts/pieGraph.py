@@ -14,7 +14,7 @@ TYPE = "pie"
 global path
 def ConnToDb():
     myClient = pymongo.MongoClient(
-        "mongodb://localhost:27017"
+         "mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true"
     )
     mydb = myClient["sample_supplies"]
 
@@ -46,6 +46,7 @@ def FetchData(userID, userColl):
     plt.pie(number, labels= gender, colors= colors, autopct='%1.1f%%')
     plt.suptitle(TITLE, fontsize=14)
     plt.title(FILTER, fontsize=10)
+    print(path)
     userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
     plt.savefig(path)
 

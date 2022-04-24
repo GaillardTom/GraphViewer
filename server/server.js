@@ -21,6 +21,23 @@ app.get('/', function(req, res) {
     res.send('Graph Viewer');
 })
 
+
+
+/**
+ * @method post
+ * @path '/register'
+ * @param none
+ * @headers none required
+ * @body firstName, lastName, username, password
+ * @responseStatus 200 for succesful account creation, 303 for username already taken or error with database, 500 for internal server error 
+ * @responseBody Succesfully Created (on 200), Username Already taken (on 303), Error with DB (on 303), Internal Server Error (on 500)
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to create an account.
+ * 
+ * The response is used to validate the registration of a new user.
+ * @
+ */
 app.post('/register', async(req, res)=>{ 
     if(req.body.firstName && req.body.lastName && req.body.username && req.body.password){ 
         
@@ -49,8 +66,24 @@ app.post('/register', async(req, res)=>{
 })
 
 
+
+/**
+ * @method post
+ * @path '/login'
+ * @param none
+ * @headers none required
+ * @body firstName, lastName, username, password
+ * @responseStatus 200 for succesful account creation, 303 for username already taken or error with database, 500 for internal server error 
+ * @responseBody Succesfully logged in + token provided for this user (on 200), No Informations (on 400), Unauthorized (on 404), Internal Server Error (on 500)
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to login.
+ * 
+ * The response is used to provided an user jwt to prove that he is logged in for the next routes.
+ * @
+ */
 app.post('/login', async(req,res)=> { 
-    //print(req.body.password)
+    
     if(req.body.username && req.body.password){
         try{ 
             const username = req.body.username
@@ -67,7 +100,7 @@ app.post('/login', async(req,res)=> {
                 }
                 const userJWT =  jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' })
                 
-                res.json({message: "succefully created",
+                res.json({message: "Succefully logged in",
                         token: userJWT}).status(200)
             }
             else{ 

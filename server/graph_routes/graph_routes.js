@@ -6,7 +6,26 @@ const { GetUserIDWithJWT } = require('../middlewares/auth')
 const { GetGraphLocation, GetAllGraph, DeleteGraphOfUser,GetGraphsByType } = require('../database')
 const { spawn } = require('child_process');
 
-const defaults = { cwd: "D:\\Winter2022\\GraphViewer\\scripts" }
+//const defaults = { cwd: "..\\scripts" }
+
+//check for more error handling title
+
+
+/**
+ * @method get
+ * @path '/graph/'
+ * @param none
+ * @headers token (user's jwt)
+ * @body none
+ * @responseStatus 200 for success, 400 for no token provided, 500 for internal server error 
+ * @responseBody returns all graphs of user
+ * 
+ * 
+ * This route is triggered on the client side when the user comes to the graph page.
+ * 
+ * The response is used to populate the graph page with all the graphs of the user.
+ * @
+ */
 graph.get('/', async function (req, res) {
 
         if (req.header("token")) {
@@ -37,6 +56,23 @@ graph.get('/', async function (req, res) {
 
 })
 
+
+
+/**
+ * @method get
+ * @path '/graph/:id'
+ * @param id
+ * @headers token (user's jwt)
+ * @body none
+ * @responseStatus 200 for success, 400 for no token provided, 500 for internal server error 
+ * @responseBody returns graph of the provided id
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to get the requested graph.
+ * 
+ * The response is used to return the graph that was requested with its graphID, location and its title.
+ * @
+ */
 graph.get('/:id', async function (req, res) {
 
         if (req.params.id) {
@@ -63,6 +99,24 @@ graph.get('/:id', async function (req, res) {
                 res.status(404).send('No Graph ID Specified')
         )
 })
+
+
+
+/**
+ * @method post
+ * @path 'graph/barGraph/'
+ * @param none
+ * @headers token (user's jwt)
+ * @body title (title for the graph), filter (the filter is the store location the user is trying to create a graph about) 
+ * @responseStatus 200 for success,  500 for internal server error and no token provided
+ * @responseBody CREATED
+ * 
+ * 
+ * This route is triggered on the client side when the user comes to the graph page.
+ * 
+ * The response is used to validate that the graph was created.
+ * @
+ */
 graph.post('/barGraph', async(req, res) => {
         var dataToSend;
         const filter = req.body.filter
@@ -72,64 +126,7 @@ graph.post('/barGraph', async(req, res) => {
         const title = req.body.title
         console.log('title: ', title);
         // spawn new child process to call the python script
-        const python = await spawn('python', ['D:\\Winter2022\\GraphViewer\\scripts\\barGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
-        //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
-        // collect data from script
-        python.stdout.on('data', function (data) {
-                console.log('data: ', data.toString());
-         console.log('Pipe data from python script ...');
-        })
-        //dataToSend = data.toString();
-});
-graph.post('/columnGraph', async(req, res) => {
-        var dataToSend;
-        const filter = req.body.filter
-        console.log('filter: ', filter);
-        const user = await GetUserIDWithJWT(req.header('token'))
-        console.log('user: ', user);
-        const title = req.body.title
-        console.log('title: ', title);
-        // spawn new child process to call the python script
-        const python = await spawn('python', ['D:\\Winter2022\\GraphViewer\\scripts\\columnGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
-        //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
-        // collect data from script
-        python.stdout.on('data', function (data) {
-                console.log('data: ', data.toString());
-         console.log('Pipe data from python script ...');
-        })
-        //dataToSend = data.toString();
-});
-graph.post('/lineGraph', async(req, res) => {
-        var dataToSend;
-        const filter = req.body.filter
-        console.log('filter: ', filter);
-        const user = await GetUserIDWithJWT(req.header('token'))
-        console.log('user: ', user);
-        const title = req.body.title
-        console.log('title: ', title);
-        // spawn new child process to call the python script
-        const python = await spawn('python', ['D:\\Winter2022\\GraphViewer\\scripts\\lineGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
-        //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
-        // collect data from script
-        python.stdout.on('data', function (data) {
-                console.log('data: ', data.toString());
-         console.log('Pipe data from python script ...');
-        })
-        //dataToSend = data.toString();
-});
-graph.post('/pieGraph', async(req, res) => {
-        var dataToSend;
-        const filter = req.body.filter
-        console.log('filter: ', filter);
-        const user = await GetUserIDWithJWT(req.header('token'))
-        console.log('user: ', user);
-        const title = req.body.title
-        console.log('title: ', title);
-        // spawn new child process to call the python script
-        const python = await spawn('python', ['D:\\Winter2022\\GraphViewer\\scripts\\pieGraph.py', filter, title, user]);
+        const python = await spawn('python', ['..\\scripts\\barGraph.py', filter, title, user]);
         res.status(200).send('CREATED')
         //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
         // collect data from script
@@ -140,6 +137,134 @@ graph.post('/pieGraph', async(req, res) => {
         //dataToSend = data.toString();
 });
 
+
+
+/**
+ * @method post
+ * @path 'graph/columnGraph/'
+ * @param none
+ * @headers token (user's jwt)
+ * @body title (title for the graph), filter (the filter is the store location the user is trying to create a graph about) 
+ * @responseStatus 200 for success, 400 for no token provied, 500 for internal server error 
+ * @responseBody CREATED
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to upload a column graph.
+ * 
+ * The response is used to validate that the graph was created.
+ * @
+ */
+graph.post('/columnGraph', async(req, res) => {
+        var dataToSend;
+        const filter = req.body.filter
+        console.log('filter: ', filter);
+        const user = await GetUserIDWithJWT(req.header('token'))
+        console.log('user: ', user);
+        const title = req.body.title
+        console.log('title: ', title);
+        // spawn new child process to call the python script
+        const python = await spawn('python', ['..\\scripts\\columnGraph.py', filter, title, user]);
+        res.status(200).send('CREATED')
+        //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
+        // collect data from script
+        python.stdout.on('data', function (data) {
+                console.log('data: ', data.toString());
+         console.log('Pipe data from python script ...');
+        })
+        //dataToSend = data.toString();
+});
+
+
+/**
+ * @method post
+ * @path 'graph/lineGraph/'
+ * @param none
+ * @headers token (user's jwt)
+ * @body title (title for the graph), filter (the filter is the store location the user is trying to create a graph about) 
+ * @responseStatus 200 for success, 400 for no token provied, 500 for internal server error 
+ * @responseBody CREATED
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to upload a line graph.
+ * 
+ * The response is used to validate that the graph was created.
+ * @
+ */
+graph.post('/lineGraph', async(req, res) => {
+        var dataToSend;
+        const filter = req.body.filter
+        console.log('filter: ', filter);
+        const user = await GetUserIDWithJWT(req.header('token'))
+        console.log('user: ', user);
+        const title = req.body.title
+        console.log('title: ', title);
+        // spawn new child process to call the python script
+        const python = await spawn('python', ['..\\scripts\\lineGraph.py', filter, title, user]);
+        res.status(200).send('CREATED')
+        //TODO MAKE THE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
+        // collect data from script
+        python.stdout.on('data', function (data) {
+                console.log('data: ', data.toString());
+         console.log('Pipe data from python script ...');
+        })
+        //dataToSend = data.toString();
+});
+
+
+
+/**
+ * @method post
+ * @path 'graph/pieGraph/'
+ * @param none
+ * @headers token (user's jwt)
+ * @body title (title for the graph), filter (the filter is the store location the user is trying to create a graph about) 
+ * @responseStatus 200 for success, 400 for no token provied, 500 for internal server error 
+ * @responseBody CREATED
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to upload a pie graph.
+ * 
+ * The response is used to validate that the graph was created.
+ * @
+ */
+graph.post('/pieGraph', async(req, res) => {
+        var dataToSend;
+        const filter = req.body.filter
+        console.log('filter: ', filter);
+        const user = await GetUserIDWithJWT(req.header('token'))
+        console.log('user: ', user);
+        const title = req.body.title
+        console.log('title: ', title);
+        // spawn new child process to call the python script
+        const python = await spawn('python', ['..\\scripts\\pieGraph.py', filter, title, user]);
+        res.status(200).send('CREATED')
+        //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
+        // collect data from script
+        python.stdout.on('data', function (data) {
+                console.log('data: ', data.toString());
+         console.log('Pipe data from python script ...');
+        })
+        //dataToSend = data.toString();
+});
+
+
+
+
+/**
+ * @method delete
+ * @path '/graph/:id'
+ * @param id of the graph that is to be deleted
+ * @headers token (user's jwt)
+ * @body none
+ * @responseStatus 200 for success, 400 for no token provied, 404 for no graph found, 500 for internal server error 
+ * @responseBody Graph Deleted (on 200),Please log in first (on 400), Graph not found (on 404), Internal Server Error (on 500)
+ * 
+ * 
+ * This route is triggered on the client side when the user tries to remove one of his graphs.
+ * 
+ * The response is used to validate that the graph was deleted.
+ * @
+ */
 graph.delete('/:id', async function (req, res) {
         console.log(req.params.id);
         const ids = ObjectId(req.params.id);
