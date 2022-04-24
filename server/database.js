@@ -1,4 +1,4 @@
-const { MongoClient, ObjectId, ObjectID } = require('mongodb');
+const { MongoClient, ObjectId} = require('mongodb');
 const { HashPassword, ComparePassword} = require('./services/services');
 
 // Connection URL

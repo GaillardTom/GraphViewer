@@ -1,8 +1,6 @@
 const express = require('express');
 const { ObjectId } = require('mongodb');
 const graph = express.Router();
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' })
 const services = require('../services/services')
 const { GetUserIDWithJWT } = require('../middlewares/auth')
 const { GetGraphLocation, GetAllGraph, DeleteGraphOfUser } = require('../database')
@@ -130,19 +128,7 @@ graph.post('/pieGraph', async(req, res) => {
         })
         //dataToSend = data.toString();
 });
-graph.post('/', upload.single('graph'), async function (req, res) {
-        /* 
-        
-        let today = new Date().toISOString().slice(0, 10)
-        AddGraphToUsers(req.body.username, req.file.graph)
-        user.graph[req.body.id] = req.file.path;
 
-        res.send(user.graph);
-
-        
-        */
-
-})
 graph.delete('/:id', async function (req, res) {
         console.log(req.params.id);
         const ids = ObjectId(req.params.id);
@@ -163,12 +149,7 @@ graph.delete('/:id', async function (req, res) {
         }
 })
 
-graph.get('/show/:id', async (req, res) => {
-        if (ObjectId(req.params.id)) {
-                const id = ObjectId(req.params.id)
 
-        }
-})
 
 
 module.exports = graph
