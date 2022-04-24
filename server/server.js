@@ -1,9 +1,7 @@
 require('dotenv').config();
 const express = require('express')
-const multer = require('multer');
 const cors = require('cors');
 const { connectCallback, CreateUser, Connect, connectToUsersDB } = require('./database');
-const upload = multer({ dest: 'uploads/' })
 var jwt = require('jsonwebtoken');
 const {CheckJWT} = require('./middlewares/auth');
 var morgan = require('morgan');

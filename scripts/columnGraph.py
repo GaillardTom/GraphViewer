@@ -11,6 +11,7 @@ import datetime
 FILTER = sys.argv[1]
 TITLE  = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
+TYPE = "column"
 global path
 
 def ConnToDb():
@@ -29,9 +30,9 @@ def InsertToGraphDB():
     )
     mydb = myClient["graphViewerUsers"]
     coll = mydb['graph']
-    test = coll.insert_one({"userID": USERID, "title": TITLE, "timeCreated": e})
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
     print(test.inserted_id)
-    path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
+    path = f'../server/uploads/{test.inserted_id}.png'
     return ObjectId(test.inserted_id), coll
     
 
@@ -56,15 +57,12 @@ def makePie(doc, userID, coll):
     plt.title(f"{TITLE} \n{FILTER}")
     
     updateDoc = coll.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
-    print(updateDoc.matched_count)
     plt.savefig(path)
 
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
     coll = FetchData()
     salesDF = pd.DataFrame(coll)
-    print(salesDF)
     userID, collection = InsertToGraphDB()
     makePie(salesDF, userID, collection)
 

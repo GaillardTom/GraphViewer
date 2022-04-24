@@ -14,6 +14,7 @@ global path
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
+TYPE = "bar"
 def ConnToDb():
     myClient = pymongo.MongoClient(
         "mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true"
@@ -33,17 +34,10 @@ def InsertToGraphDB():
     coll = mydb['graph']
 
     
-    test = coll.insert_one({"userID": USERID, "title": TITLE, "timeCreated": e})
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
     print(test.inserted_id)
-    path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
+    path = f'../server/uploads/{test.inserted_id}.png'
     return ObjectId(test.inserted_id), coll
-    
-def makeBarGraph(doc): 
-    plt.title('Age By Location')
-    conditions = []
-    changes = {}
-    np.select()
-    
 
 def FetchData():
     coll = ConnToDb()
@@ -58,11 +52,9 @@ def FetchData():
 
 def ReturnGoodAge(df): 
     
-    print(df)
     ageRange = { "1-18": 0, "18-30": 0, "30-60": 0, "60+": 0}
     
-    for age, count in df.iterrows(): 
-        print("AGE", age, "COUNT", count)
+    for age, count in df.iterrows():  
         if(count['_id'] < 18 and count['_id'] >= 1 ):
             ageRange["1-18"] += count['count']
         elif(count['_id']< 30 and count['_id'] >= 18):
@@ -75,8 +67,6 @@ def ReturnGoodAge(df):
 
 def MakeBarGraph(ageRange, objectID, coll) :
     global path
-    print(path)
-    print(ageRange)
     plt.suptitle(TITLE)
     plt.title(FILTER)
     ages = list(ageRange.keys())
@@ -86,34 +76,9 @@ def MakeBarGraph(ageRange, objectID, coll) :
     plt.barh(ages, values)
 
     updateDoc = coll.update_one({"_id": objectID}, {"$set": {"graphLocation": path}})
-    print(updateDoc.matched_count)
-    plt.savefig(path)    #plt.show()
-    #plt.savefig(path)
-    #ages = []
-    #for i in df: 
-     #   ages.append(i)
-   #TODO AGE RANGE WITH THE AGE OF THE DATAFRAME !! 
-   
-    """
-     choices = [[18], [30], [60], [1000] ] 
-    conditions = [ ( df["_id"] < 18),
-                    ( df["_id"] < 30), 
-                     (df["_id"] < 60),
-                     (df["_id"] < 1000) ]
-    ageRange = np.select(choices, conditions)
-    print(ageRange)
-    return ageRange
-    
-    """
-
-
-    
-    
-
-
+    plt.savefig(path)
     
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
     coll = FetchData()
     salesDF = pd.DataFrame(coll)

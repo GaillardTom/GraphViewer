@@ -173,11 +173,17 @@ async function GetGraphLocation(graphID, userID){
         return false
     }
 }
+async function GetGraphsByType(userID, type){ 
+    userID = await ObjectId(userID)
+    const userGraphs = await usersDatabase.collection('graph').find({userID: userID, type: type}).toArray()
+    console.log(userGraphs)
+    return userGraphs
+}
 async function GetAllGraph(userID){ 
     try { 
         
-        const test = await ObjectId(userID)
-        const userGraphs = await usersDatabase.collection('graph').find({userID: test}).toArray()
+        const id = await ObjectId(userID)
+        const userGraphs = await usersDatabase.collection('graph').find({userID: id}).toArray()
         console.log('userGraphs: ', userGraphs);
         return userGraphs
     }catch(e){ 
@@ -197,5 +203,6 @@ module.exports = {
     GetGraphLocation,
     FindUser,
     GetAllGraph,
-    DeleteGraphOfUser
+    DeleteGraphOfUser,
+    GetGraphsByType
 }

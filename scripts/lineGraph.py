@@ -10,6 +10,7 @@ import datetime
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
+TYPE = "line"
 global path
 
 def ConnToDb():
@@ -21,7 +22,7 @@ def ConnToDb():
     collection = mydb["sales"]
     return collection
 
-def InsertToGraphDB(): 
+def InsertToGraphDB():  
     e = datetime.datetime.utcnow()
     global path
     myClient = pymongo.MongoClient(
@@ -29,9 +30,9 @@ def InsertToGraphDB():
     )
     mydb = myClient["graphViewerUsers"]
     coll = mydb['graph']
-    test = coll.insert_one({"userID": USERID, "title": TITLE, "timeCreated": e})
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
     print(test.inserted_id)
-    path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
+    path = f'../server/uploads/{test.inserted_id}.png'
     return ObjectId(test.inserted_id), coll
     
 
@@ -53,14 +54,12 @@ def FetchData(userID, userColl):
     plt.locator_params(axis='x', nbins=5)
     plt.grid(True)
     updateDoc = userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
-    print(updateDoc.matched_count)
     plt.savefig(path)
     
     
 
 
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
     userID, userColl = InsertToGraphDB()
     FetchData(userID, userColl=userColl)

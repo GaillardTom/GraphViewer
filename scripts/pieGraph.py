@@ -10,6 +10,7 @@ import datetime
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
+TYPE = "pie"
 global path
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -27,9 +28,8 @@ def InsertToGraphDB():
     )
     mydb = myClient["graphViewerUsers"]
     coll = mydb['graph']
-    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e})
-    #print(test.inserted_id)
-    path = f'D:/Winter2022/GraphViewer/server/uploads/{test.inserted_id}.png'
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
+    path = f'../server/uploads/{test.inserted_id}.png'
     print({"graphID": test.inserted_id})
     return ObjectId(test.inserted_id), coll
     

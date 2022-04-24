@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 const graph = express.Router();
 const services = require('../services/services')
 const { GetUserIDWithJWT } = require('../middlewares/auth')
-const { GetGraphLocation, GetAllGraph, DeleteGraphOfUser } = require('../database')
+const { GetGraphLocation, GetAllGraph, DeleteGraphOfUser,GetGraphsByType } = require('../database')
 const { spawn } = require('child_process');
 
 const defaults = { cwd: "D:\\Winter2022\\GraphViewer\\scripts" }
@@ -12,12 +12,23 @@ graph.get('/', async function (req, res) {
         if (req.header("token")) {
                 const token = req.header("token");
                 const userID = await GetUserIDWithJWT(token)
-                console.log('userID: ', userID);
+
+                if(!req.body.type){ 
+                //console.log('userID: ', userID);
                 const graphs = await GetAllGraph(userID)
                 if (graphs) {
                         res.status(200).json({ graphs: graphs });
 
                 }
+                }
+                else{ 
+                        const type = req.body.type
+                        const graph = await GetGraphsByType(userID, type)
+                        if(graph){ 
+                                res.status(200).json({graphs: graph})
+                        }
+                }
+                
         }
         else {
                 res.status(400).send("NO TOKEN ")
