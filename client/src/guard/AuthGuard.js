@@ -17,26 +17,34 @@ const AuthGuard = ({ children }) => {
         }
     }, [location.pathname, navigate])
 
-    function verifyAuth() {
+    async function verifyAuth() {
 
         const token = localStorage.getItem(TOKEN_KEY);
-
-        if(!token) return false;
+        console.log('token: ', token);
+        console.log(children);
+        if(!token) 
+        {
+            console.log("token: ", token);
+            return false;
+        }
 
         try {
 
-            const decoded = jwt_decode(token, {complete: true});
+            const decoded = await jwt_decode(token); //{complete: true});
+            console.log('decoded: ', decoded);
     
             if(!decoded){
                 return false;
-            } else{ 
-                
+            }
+            else { 
+                console.log(decoded);
             }
 
         } catch (err){
-
+            console.log('Test');
             return false;
         }
+        console.log('This is true');
         return true;
     }
     return children;

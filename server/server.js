@@ -17,11 +17,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-app.get('/', function(req, res) {
-    res.send('Graph Viewer');
-})
-
-
 
 /**
  * @method post
@@ -30,7 +25,7 @@ app.get('/', function(req, res) {
  * @headers none required
  * @body firstName, lastName, username, password
  * @responseStatus 200 for succesful account creation, 303 for username already taken or error with database, 500 for internal server error 
- * @responseBody Succesfully Created (on 200), Username Already taken (on 303), Error with DB (on 303), Internal Server Error (on 500)
+ * @responseBody Succesfully Created (on 200), Username Already taken (on 303), Error with DB (on 304), Internal Server Error (on 500)
  * 
  * 
  * This route is triggered on the client side when the user tries to create an account.
@@ -43,7 +38,7 @@ app.post('/register', async(req, res)=>{
         
         const firstName = req.body.firstName;
         const lastName =req.body.lastName; 
-        //FIND A WAY TO SANITIZE THIS DIORECTLY GOING    TO DB 
+        //FIND A WAY TO SANITIZE THIS DIORECTLY GOING TO DB 
         const username = req.body.username;
         const password = req.body.password; 
        
@@ -57,7 +52,7 @@ app.post('/register', async(req, res)=>{
             }
         }
         catch{ 
-            res.status(303).send('Error with DB')
+            res.status(304).send('Error with DB')
         }
         
     }else{ 

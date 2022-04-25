@@ -44,19 +44,18 @@ export default function Register() {
     };
 
     // Handling the form submission
-    const handleSubmit = async(e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (name === '' || lastName === '' || password === '' || confirmPassword !== password || username === "") {
             setError(true);
         } else {
-            const res = axios.post('http://localhost:8080/register', { 
+            axios.post('http://localhost:8080/register', { 
                 "username": username,
                 "firstName": name,
                 "lastName": lastName,
                 "password": password
             }).then(function(response){ 
                 console.log('response: ', response);
-
                 if (response.status === 200){ 
                     setSubmitted(true);
                     setError(false);
