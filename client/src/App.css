@@ -3,7 +3,16 @@
     background-image: url("../src/assets/placeholder.png");
     background-size: cover;
 }
-
+.register{ 
+    color:rgb(1, 29, 50);
+    display: flex;
+    background-image: url("../src/assets/placeholder.png");
+    background-size: contain;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 7vmin;
+}
 .App-logo {
     height: 40vmin;
     pointer-events: none;

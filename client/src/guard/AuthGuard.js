@@ -27,7 +27,11 @@ const AuthGuard = ({ children }) => {
 
             const decoded = jwt_decode(token, {complete: true});
     
-            if(!decoded) return false;
+            if(!decoded){
+                return false;
+            } else{ 
+                
+            }
 
         } catch (err){
 
