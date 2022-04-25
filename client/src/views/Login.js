@@ -20,9 +20,13 @@ import axios from 'axios';
 ).then(function (response) {
     console.log(response);
     console.log(response.data);
-    console.log(response.data.token);
-    localStorage.setItem('token', response.data.token);
-    window.location.href = "/graph";
+    if (response.status === 200)
+    {
+        console.log(response.data.token);
+        localStorage.setItem('token', response.data.token);
+       // window.location.href = "/graph";
+    }
+    
 }
 ).catch(function (error) {
     alert(error);
