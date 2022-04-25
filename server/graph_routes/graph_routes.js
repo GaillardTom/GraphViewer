@@ -68,7 +68,7 @@ graph.get('/', async function (req, res) {
  * @responseBody returns graph of the provided id
  * 
  * 
- * This route is triggered on the client side when the user tries to get the requested graph.
+ * This route is triggered on the client side when the user tries to get the requested graph.(for example: after creating one it will call this path and get the _id and the path to display it on the frontend)
  * 
  * The response is used to return the graph that was requested with its graphID, location and its title.
  * @
