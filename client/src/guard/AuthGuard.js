@@ -14,6 +14,10 @@ const AuthGuard = ({ children }) => {
             if(!verifyAuth()){
                 navigate("/login")
             }
+            else
+            {
+                console.log("token is valid");
+            }
         }
     }, [location.pathname, navigate])
 
