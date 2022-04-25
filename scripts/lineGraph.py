@@ -4,10 +4,14 @@ import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
+from bson.objectid import ObjectId
+import datetime
 
 FILTER = sys.argv[1]
-
+TITLE = sys.argv[2]
+USERID = ObjectId(sys.argv[3])
+TYPE = "line"
+global path
 
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -18,34 +22,58 @@ def ConnToDb():
     collection = mydb["sales"]
     return collection
 
+def InsertToGraphDB():  
+    e = datetime.datetime.utcnow()
+    global path
+    myClient = pymongo.MongoClient(
+         "mongodb://localhost:27017"
+    )
+    mydb = myClient["graphViewerUsers"]
+    userCollection = mydb['graph']
+    test = userCollection.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
+    print(test.inserted_id)
+    path = f'../server/uploads/{test.inserted_id}.png'
+    return ObjectId(test.inserted_id), userCollection
+    
 
-
-def FetchData():
+def FetchData(userID, userColl):
     coll = ConnToDb()
+    global path
 
 
-    df = pd.DataFrame(list(coll.aggregate([{"$match": {"customer.gender": FILTER}} ,{"$group": {"_id": "$customer.satisfaction" , "Number": {"$sum": 1}}}, {"$sort": {"_id":1}} ])))
-    xAxis = np.array(df["_id"])
-    yAxis = np.array(df["Number"])
+    dfFemale = pd.DataFrame(list(coll.aggregate([{"$match": {"storeLocation": FILTER, "customer.gender": "F"}} ,
+                                             {"$unwind": "$customer"},
+                                             {"$group": { "_id": "$customer.satisfaction" ,  "Number": {"$sum": "$customer.satisfaction"}}
+                                              }, {"$sort": {"_id":1}} ])))
+    dfMale = pd.DataFrame(list(coll.aggregate([{"$match": {"storeLocation": FILTER, "customer.gender": "M"}} ,
+                                             {"$unwind": "$customer"},
+                                             {"$group": { "_id": "$customer.satisfaction" ,  "Number": {"$sum": "$customer.satisfaction"}}
+                                              }, {"$sort": {"_id":1}} ])))
 
-    plt.plot(xAxis,yAxis)
-    plt.suptitle('Satisfaction per gender')
-    if (FILTER == "M"): plt.title("Men")
-    elif (FILTER == "F"): plt.title("Female")
-    plt.xlabel('Satisfaction')
-    plt.ylabel('yAxis name')
+    xAxisMale = np.array(dfMale["_id"])
+    yAxisMale = np.array(dfMale["Number"])
+    xAxisFemale = np.array(dfFemale["_id"])
+    yAxisFemale = np.array(dfFemale["Number"])
+    plt.plot(xAxisMale,yAxisMale, color = 'blue', label = "Male")
+    plt.plot(xAxisFemale,yAxisFemale, color = 'pink', label = "Female")
+    plt.suptitle(TITLE)
+    plt.title(f"Statisfaction per Gender in {FILTER}")
+    plt.legend(title= "Genders")
+    plt.xlabel('Satisfaction Rating 1-5')
+    plt.ylabel('Number of Ratings')
     plt.locator_params(axis='x', nbins=5)
     plt.grid(True)
-    plt.show()
+
+    updateDoc = userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
+    plt.savefig(path)
     
-    return df
+    
 
 
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
-    genderDf = FetchData()
-    print(genderDf)
+    userID, userColl = InsertToGraphDB()
+    FetchData(userID, userColl=userColl)
 
 
 if __name__ == "__main__":

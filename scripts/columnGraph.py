@@ -1,13 +1,18 @@
 import sys 
 from pydoc import doc
+from matplotlib import collections
 import pymongo
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
+from bson.objectid import ObjectId
+import datetime
 
 FILTER = sys.argv[1]
-
+TITLE  = sys.argv[2]
+USERID = ObjectId(sys.argv[3])
+TYPE = "column"
+global path
 
 def ConnToDb():
     myClient = pymongo.MongoClient(
@@ -17,7 +22,19 @@ def ConnToDb():
 
     collection = mydb["sales"]
     return collection
-
+def InsertToGraphDB(): 
+    e = datetime.datetime.utcnow()
+    global path
+    myClient = pymongo.MongoClient(
+         "mongodb://localhost:27017"
+    )
+    mydb = myClient["graphViewerUsers"]
+    coll = mydb['graph']
+    test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
+    print(test.inserted_id)
+    path = f'../server/uploads/{test.inserted_id}.png'
+    return ObjectId(test.inserted_id), coll
+    
 
 
 def FetchData():
@@ -31,21 +48,23 @@ def FetchData():
     ))
     return doc
 
-def makePie(doc):
+def makePie(doc, userID, coll):
+    global path
     ypoints = doc["itemsQuantity"] 
     label = doc["_id"]
     plt.bar(label, ypoints)
     plt.xticks(rotation=45)
-    plt.title(f"Items Sold Per Region \n{FILTER}")
-    plt.show()
+    plt.title(f"{TITLE} \n{FILTER}")
+    
+    updateDoc = coll.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
+    plt.savefig(path)
 
 def main(): 
-    print(sys.argv[1])
     ConnToDb()
     coll = FetchData()
     salesDF = pd.DataFrame(coll)
-    print(salesDF)
-    makePie(salesDF)
+    userID, collection = InsertToGraphDB()
+    makePie(salesDF, userID, collection)
 
 if __name__ == "__main__":
     main()
