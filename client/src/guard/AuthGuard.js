@@ -16,6 +16,7 @@ const AuthGuard = ({ children }) => {
             }
             else
             {
+                navigate(location.pathname)
                 console.log("token is valid");
             }
         }
