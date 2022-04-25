@@ -77,3 +77,11 @@ a:hover {
     max-width: 80%;
     display: initial !important;
 }
+
+.m-4 {
+    
+    margin: auto;
+    width: 45%;
+    padding: 5px;
+    border-radius: 0.5em;
+}
