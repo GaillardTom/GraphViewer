@@ -106,3 +106,15 @@ a:hover {
     padding: 5px;
     border-radius: 0.5em;
 }
+.NoGraphText{ 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    min-height: 4em;
+    color:rgb(169, 247, 208);
+
+}

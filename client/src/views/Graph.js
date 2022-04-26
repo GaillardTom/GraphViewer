@@ -93,7 +93,10 @@ export default function GraphView() {
             {graphs.length > 0 ? (
                 <Graphs graphs={graphs} onDelete={deleteGraph} />
 
-            ) : ('No Graphs To Show')}
+            ) :            <div className='CreateNewButton'> 
+                                    No Graphs To Show
+                            </div> 
+            }
         </div>
 
     );
