@@ -84,7 +84,7 @@ export default function GraphView() {
         <div className="GraphDiv">
             <h1>Your Graphs</h1>
             <div className='CreateNewButton'> 
-            <Button variant="contained" href="/uploads">Create New</Button>
+            <Button variant="contained" href="/upload">Create New</Button>
             </div>
             {graphs.map((graph) => {
                 console.log('graphTitle: ', graph.title);
@@ -93,7 +93,7 @@ export default function GraphView() {
             {graphs.length > 0 ? (
                 <Graphs graphs={graphs} onDelete={deleteGraph} />
 
-            ) :            <div className='CreateNewButton'> 
+            ) :            <div className='NoGraphText'> 
                                     No Graphs To Show
                             </div> 
             }
