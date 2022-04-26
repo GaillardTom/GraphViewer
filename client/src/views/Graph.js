@@ -3,46 +3,66 @@ import '../App.css';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-
-
-import { experimentalStyled as styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 import Graph from '../components/Graph'
+import Graphs from "../components/Graphs"
 
 
 axios.defaults.headers.common['token'] = localStorage.getItem('token');
 
 
-
 export default function GraphView() {
 
     //const navigate = useNavigate()
+    const [graphs, setGraphs] = React.useState([])
 
-    function getGraphs() {
-        const graphs = []
-        axios.get('http://localhost:8080/graph' ).then( function(response){ 
-            console.log(response)
-            if(response.status === 200 && response.data.graphs){ 
-                console.log(response.data.graphs);
-                graphs.push(response.data.graphs)
-                
-            }
-            
+
+    React.useEffect(() => {
+
+        const getGraphs = async () => {
+            const GraphsFromServer = await fetchGraphs()
+            setGraphs(GraphsFromServer)
+
         }
-        ).catch( (error)=> { 
-            console.log(error)
-            return false
-        }
-        )
-        return graphs
+        getGraphs()
+    }, [])
+    // Fetch Graphs From server
+    const fetchGraphs = async () => {
+        const res = await axios.get('http://localhost:8080/graph')
+        console.log('res: ', res.data.graphs);
+        const data = await res.data.graphs
+        console.log('data: ', data);
+        return data
     }
 
+    //Delete Graph from api 
+    const DeleteGraphServer = async(graphID) => { 
+        console.log('graphID: ', graphID);
+        const res = await axios.delete("http://localhost:8080/graph/" + graphID._id)
+        console.log('res: ', res);
+        if(res.status === 200){ 
+            return true
+        }
+        else{ 
+            return false
+        }
 
+    }
+
+    //Delete Graph 
+    const deleteGraph = async(graphID) => {
+        if(await DeleteGraphServer(graphs.find((graph) => graph._id !== graphID))){
+            setGraphs(graphs.filter((graph) => graph._id !== graphID))
+
+        }else{ 
+            alert("ERROR")
+        }
+
+    }
 
     const test = { title: "gay", type: 'ultraGay' }
+    /*
     const GenerateGraphElement = async() => {
         const graphs = getGraphs()
         console.log('graphs: ', graphs);
@@ -53,12 +73,25 @@ export default function GraphView() {
         }));
         return graphElement
     };
-
+    */
+    function RedirectToUploads() { 
+        useNavigate('/uploads')
+    }
 
     return (
-        <div class="test"> 
-        <h1>Your Graphs</h1> 
-        {GenerateGraphElement()}
+        <div className="GraphDiv">
+            <h1>Your Graphs</h1>
+            <div className='CreateNewButton'> 
+            <Button variant="contained" href="/uploads">Create New</Button>
+            </div>
+            {graphs.map((graph) => {
+                console.log('graphTitle: ', graph.title);
+
+            })}
+            {graphs.length > 0 ? (
+                <Graphs graphs={graphs} onDelete={deleteGraph} />
+
+            ) : ('No Graphs To Show')}
         </div>
 
     );
