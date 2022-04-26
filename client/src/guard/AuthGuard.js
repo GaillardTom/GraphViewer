@@ -9,9 +9,10 @@ const AuthGuard = ({ children }) => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    useEffect(() => {
+    useEffect(async() => {
         if (location.pathname !== '/login' && location.pathname !== '/register') {
-            if(!verifyAuth()){
+            const ans = await verifyAuth()
+            if(!ans){
                 navigate("/login")
             }
             else
@@ -27,7 +28,7 @@ const AuthGuard = ({ children }) => {
         const token = localStorage.getItem(TOKEN_KEY);
         console.log('token: ', token);
         console.log(children);
-        if(!token) 
+        if(!token || token == null) 
         {
             console.log("token: ", token);
             return false;
@@ -35,7 +36,8 @@ const AuthGuard = ({ children }) => {
 
         try {
 
-            const decoded = await jwt_decode(token); //{complete: true});
+            const decoded = await jwt_decode(token, {complete: true});
+            console.log('decoded: ', decoded);
             console.log('decoded: ', decoded);
     
             if(!decoded){
