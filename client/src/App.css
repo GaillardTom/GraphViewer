@@ -94,3 +94,85 @@ a:hover {
     padding: 5px;
     border-radius: 0.5em;
 }
+
+.back {
+    margin: auto;
+    left: 15px;
+    top: 10px;
+    position: absolute;
+}
+
+.Logout {
+    margin: auto;
+    right: 15px;
+    top: 10px;
+    position: absolute;
+}
+
+.App-header {
+    background-color: #61dafb;
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 2em;
+    min-width: 75vw;
+    top: 100px;
+    position: absolute;
+}
+
+.card {
+  
+
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 300px;
+    top: 250px;
+    position: absolute;
+    ;
+}
+
+#card1 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 320px;
+    
+    position: absolute;
+    background-image: url("../src/assets/bar.png");
+    background-size: contain;
+}
+#card2 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 320px;
+    
+    position: absolute;
+    background-image: url("../src/assets/barh.png");
+    background-size: contain;
+}
+
+#card3 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 320px;
+    top: 600px;
+    position: absolute;
+    background-image: url("../src/assets/line.png");
+    background-size: contain;
+}
+
+#card4 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 320px;
+    top: 600px;
+    position: absolute;
+    background-image: url("../src/assets/pie.png");
+    background-size: contain;
+}
+.card-title {
+    height: auto;
+}
