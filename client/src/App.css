@@ -140,15 +140,15 @@ a:hover {
     min-width: 300px;
     top: 250px;
     position: absolute;
-    ;
+    
 }
 
 #card1 {
     border-radius: 0.5em;
     opacity: 0.95;
-    min-height: 16em;
+    min-height: 15em;
     min-width: 320px;
-    
+    left : 25%;
     position: absolute;
     background-image: url("../src/assets/bar.png");
     background-size: contain;
@@ -158,32 +158,36 @@ a:hover {
     opacity: 0.95;
     min-height: 16em;
     min-width: 320px;
-    
+    right: 25%;
     position: absolute;
     background-image: url("../src/assets/barh.png");
     background-size: contain;
+   
+
 }
 
 #card3 {
     border-radius: 0.5em;
     opacity: 0.95;
-    min-height: 16em;
+    min-height: 15em;
     min-width: 320px;
     top: 600px;
     position: absolute;
     background-image: url("../src/assets/line.png");
     background-size: contain;
+    left: 25%;
 }
 
 #card4 {
     border-radius: 0.5em;
     opacity: 0.95;
-    min-height: 16em;
+    min-height: 14em;
     min-width: 320px;
     top: 600px;
     position: absolute;
     background-image: url("../src/assets/pie.png");
     background-size: contain;
+    right: 25%;
 }
 .card-title {
     height: auto;
