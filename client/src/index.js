@@ -8,7 +8,7 @@ import Register from './views/Register';
 import Login from './views/Login';
 import NotFound from './views/NotFound';
 import Protected from './views/Protected';
-
+import Graph from './views/Graph';
 export default function App() {
 
 
@@ -20,6 +20,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path='register' element={<Register/>}/>
             <Route path="login" element={<Login />} />
+            <Route path='graphs' element={<Graph/>} />
             <Route path="protected" element={<Protected />} />
             <Route path="*" element={<NotFound />} />
           </Route>
