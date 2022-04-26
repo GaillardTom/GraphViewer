@@ -47,7 +47,16 @@
     justify-content: left;
     font-size: calc(10px + 2vmin);
 }
-
+.CreateNewButton{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+}
+.tab{ 
+    display: inline-block;
+            margin-left: 40px;
+}
 .Nav-bar {
     display: flex;
     flex-direction: row;
@@ -62,7 +71,10 @@
     color: #61dafb;
 }
 
+.Graph{ 
+    cursor: pointer;
 
+}
 /* Navigation link colors */
 
 a {
