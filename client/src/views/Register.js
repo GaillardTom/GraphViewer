@@ -3,7 +3,7 @@ import '../App.css';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-
+import Button from '@mui/material/Button';
 export default function Register() {
 
     const navigate = useNavigate()
@@ -109,10 +109,13 @@ export default function Register() {
     }
 
     return (
-        <div className="app">
+        <div className="App">
+             <header className="App-full">
+
             <div>
                 <h1>User Registration</h1>
             </div>
+
 
             {/* Calling to the methods */}
             <div className="messages">
@@ -123,46 +126,44 @@ export default function Register() {
             <form>
                 {/* Labels and inputs for form data */}
 
-                <div class="register">
-
-
+                <div className="register">
                     <label className="label">Username</label>
                     <input onChange={handleUsername} className="input"
                         value={username} type="text" />
                 </div>
 
-                <div class="register">
-
-
+                <div className="register">
                     <label className="label">First Name</label>
                     <input onChange={handleName} className="input"
                         value={name} type="text" />
                 </div>
-                <div class="register">
+                <div className="register">
 
                     <label className="label">Last Name</label>
                     <input onChange={handleLastName} className="input"
                         value={lastName} type="text" />
 
                 </div>
-                <div class="register">
+                <div className="register">
 
                     <label className="label">Password</label>
                     <input onChange={handlePassword} className="input"
                         value={password} type="password" />
                 </div>
-                <div class="register">
+                <div className="register">
                     <label className='label'>Confirm Password</label>
                     <input onChange={confirmPass} className="input"
                         value={confirmPassword} type="password" />
                 </div>
-                <div class="register">
-                    <button onClick={handleSubmit} className="btn" type="button">
+                <div className="register">
+                    <Button onClick={handleSubmit} className="Submit">
                         Submit
-                    </button>
+                    </Button>
                 </div>
 
             </form>
+            </header>
+
         </div>
     );
 

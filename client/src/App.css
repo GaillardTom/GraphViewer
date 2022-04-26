@@ -6,12 +6,9 @@
 .register{ 
     color:rgb(1, 29, 50);
     display: flex;
-    background-image: url("../src/assets/placeholder.png");
-    background-size: contain;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    height: 7vmin;
 }
 .App-logo {
     height: 40vmin;
@@ -76,7 +73,24 @@
 
 }
 /* Navigation link colors */
+.Log{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    gap: 50px;
 
+}
+.Reg{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
 a {
     color: #FFF;
     text-decoration: none !important;
@@ -107,15 +121,12 @@ a:hover {
     border-radius: 0.5em;
 }
 .NoGraphText{ 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 100px;
-    height: 100px;
-    min-height: 4em;
-    color:rgb(169, 247, 208);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    
 
 }
 
@@ -152,7 +163,7 @@ a:hover {
     min-width: 300px;
     top: 250px;
     position: absolute;
-    ;
+    
 }
 
 #card1 {
@@ -199,4 +210,8 @@ a:hover {
 }
 .card-title {
     height: auto;
+}
+.Submit{ 
+    width: 250px;
+    height: 200;
 }
