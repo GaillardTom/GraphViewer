@@ -13,7 +13,7 @@ function Home() {
                 </h1>
                  
                     
-                <button type="button" className="btn btn-success btn-lg"><Link to="/upload">Get started</Link></button>
+                <button type="button" className="btn btn-success btn-lg"><Link to="/login">Get started</Link></button>
             </header>
         </div>
     );
