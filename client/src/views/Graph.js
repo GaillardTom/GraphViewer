@@ -38,7 +38,7 @@ export default function GraphView() {
 
     //Delete Graph from api 
     const DeleteGraphServer = async(graphID) => { 
-        console.log('graphID: ', graphID);
+        console.log('graphID: ', graphID._id);
         const res = await axios.delete("http://localhost:8080/graph/" + graphID._id)
         console.log('res: ', res);
         if(res.status === 200){ 
@@ -52,7 +52,9 @@ export default function GraphView() {
 
     //Delete Graph 
     const deleteGraph = async(graphID) => {
-        if(await DeleteGraphServer(graphs.find((graph) => graph._id !== graphID))){
+        const graph = graphs.find((graph) => graph._id === graphID)
+        console.log('graph: ', graph);
+        if(await DeleteGraphServer(graph)){
             setGraphs(graphs.filter((graph) => graph._id !== graphID))
 
         }else{ 

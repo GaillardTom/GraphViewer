@@ -33,7 +33,7 @@ export default function Logging() {
                     console.log(response.data.token);
                     localStorage.setItem('token', response.data.token);
                     alert("You are logged in");
-                    navigate("/home");
+                    navigate("/graphs");
                 }
             }
             ).catch(function (error) {
