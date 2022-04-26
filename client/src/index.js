@@ -6,6 +6,7 @@ import './index.css';
 import Home from './views/Home';
 import Register from './views/Register';
 import Login from './views/Login';
+import Upload from './views/Upload';
 import NotFound from './views/NotFound';
 import Protected from './views/Protected';
 import Graph from './views/Graph';
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="login" element={<Login />} />
             <Route path='graphs' element={<Graph/>} />
             <Route path="protected" element={<Protected />} />
+            <Route path="upload" element={<Upload />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
