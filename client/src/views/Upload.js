@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Uploads() {
 
+    
     const navigate = useNavigate()
 
     const returnToHome = () => {
         navigate('/graphs')
     }
 
-    const sendToInput = () => {
+    const sendToInput = (type) => {
+        localStorage.setItem('type', type)
         navigate('/input')
     }
 
@@ -19,6 +21,7 @@ export default function Uploads() {
         navigate('/login')
     }
 
+   
 
     return(
     <div className="App">
@@ -39,8 +42,8 @@ export default function Uploads() {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="card" id='card1'>
-                                <div className="card-body" onClick={sendToInput}>
-                                 
+                                <div className="card-body" onClick={sendToInput('bar')}>
+                                
                                     
                                    
                                 </div>
@@ -48,7 +51,7 @@ export default function Uploads() {
                         </div>
                         <div className="col-md-6">
                        
-                            <div className="card" id='card4' onClick={sendToInput}>
+                            <div className="card" id='card4' onClick={sendToInput('pie')}>
                             
                                 <div className="card-body">
                                 
@@ -60,7 +63,7 @@ export default function Uploads() {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <div className="card" id='card3' onClick={sendToInput}>
+                            <div className="card" id='card3' onClick={sendToInput('line')}>
                                 <div className="card-body" >
                                     
                                     
@@ -71,7 +74,7 @@ export default function Uploads() {
 
                         <div className="col-md-6">
 
-                            <div className="card" id='card2' onClick={sendToInput}>
+                            <div className="card" id='card2' onClick={sendToInput('barh')}>
                                 <div className="card-body" >
                                     
                                    
@@ -85,3 +88,4 @@ export default function Uploads() {
         </div>
     );
 }
+
