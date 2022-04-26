@@ -7,7 +7,7 @@ export default function Uploads() {
     const navigate = useNavigate()
 
     const returnToHome = () => {
-        navigate('/')
+        navigate('/graphs')
     }
 
     const sendToInput = () => {
@@ -15,8 +15,11 @@ export default function Uploads() {
     }
 
     const Logout = () => {
+        localStorage.removeItem('token')
         navigate('/login')
     }
+
+
     return(
     <div className="App">
             <header className="App-full">
@@ -37,7 +40,7 @@ export default function Uploads() {
                         <div className="col-md-6">
                             <div className="card" id='card1'>
                                 <div className="card-body" onClick={sendToInput}>
-                                    <h5 className="card-title">Vertical Bars Graph</h5>
+                                 
                                     
                                    
                                 </div>
@@ -46,7 +49,7 @@ export default function Uploads() {
                         <div className="col-md-6">
                        
                             <div className="card" id='card4'>
-                            <h5 className="card-title">Pie Graph</h5>
+                            
                                 <div className="card-body">
                                 
                                    
@@ -57,20 +60,21 @@ export default function Uploads() {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <div className="card2" id='card3' onClick={sendToInput}>
+                            <div className="card" id='card3' onClick={sendToInput}>
                                 <div className="card-body" >
                                     
-                                    <h5 className="card-title">Line Graph</h5>
+                                    
                                    
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-6">
-                            <div className="card">
-                                <div className="card-body" id='card2'>
+
+                            <div className="card" id='card2'>
+                                <div className="card-body" >
                                     
-                                    <h5 className="card-title">Horizontal Bar Graph</h5>
+                                   
                                     
                                 </div>
                             </div>
