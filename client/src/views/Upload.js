@@ -55,8 +55,6 @@ export default function Uploads() {
                             
                                 <div className="card-body">
                                 
-                                   
-                                   
                                 </div>
                             </div>
                         </div>
@@ -65,8 +63,6 @@ export default function Uploads() {
                         <div className="col-md-6">
                             <div className="card" id='card3' onClick={sendToInput('line')}>
                                 <div className="card-body" >
-                                    
-                                    
                                    
                                 </div>
                             </div>
