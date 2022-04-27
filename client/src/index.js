@@ -6,9 +6,14 @@ import './index.css';
 import Home from './views/Home';
 import Register from './views/Register';
 import Login from './views/Login';
+import Upload from './views/Upload';
 import NotFound from './views/NotFound';
 import Protected from './views/Protected';
+<<<<<<< HEAD
 import Uploads from './views/Uploads';
+=======
+import Graph from './views/Graph';
+>>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
 export default function App() {
 
 
@@ -20,8 +25,13 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path='register' element={<Register/>}/>
             <Route path="login" element={<Login />} />
+            <Route path='graphs' element={<Graph/>} />
             <Route path="protected" element={<Protected />} />
+<<<<<<< HEAD
             <Route path="upload" element={<Uploads />} />
+=======
+            <Route path="upload" element={<Upload />} />
+>>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

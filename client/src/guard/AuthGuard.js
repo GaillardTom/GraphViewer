@@ -10,16 +10,20 @@ const AuthGuard = ({ children }) => {
     const location = useLocation()
 
     useEffect(() => {
-        if (location.pathname !== '/login' && location.pathname !== '/register') {
-            if(!verifyAuth()){
-                navigate("/login")
+        async function Fetch(){ 
+            if (location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== "/") {
+                const ans = await verifyAuth()
+                if(!ans){
+                    navigate("/login")
+                }
+                else
+                {
+                    navigate(location.pathname)
+                    console.log("token is valid");
+                }
             }
-            else
-            {
-                navigate(location.pathname)
-                console.log("token is valid");
-            }
-        }
+        }Fetch()
+        
     }, [location.pathname, navigate])
 
     async function verifyAuth() {
@@ -27,7 +31,7 @@ const AuthGuard = ({ children }) => {
         const token = localStorage.getItem(TOKEN_KEY);
         console.log('token: ', token);
         console.log(children);
-        if(!token) 
+        if(!token || token == null) 
         {
             console.log("token: ", token);
             return false;
@@ -35,7 +39,8 @@ const AuthGuard = ({ children }) => {
 
         try {
 
-            const decoded = await jwt_decode(token); //{complete: true});
+            const decoded = await jwt_decode(token, {complete: true});
+            console.log('decoded: ', decoded);
             console.log('decoded: ', decoded);
     
             if(!decoded){

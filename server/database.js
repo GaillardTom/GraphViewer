@@ -48,7 +48,6 @@ async function CreateUser(username, password, firstName, lastName) {
               password: hash,
               firstName: firstName,
               lastName: lastName,
-              graph: [],
             };
             await usersDatabase.collection('users').insertOne(user);
             return true;

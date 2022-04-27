@@ -4,20 +4,46 @@
     background-size: cover;
 }
 .register{ 
-    color:rgb(1, 29, 50);
+    color: rgb(1, 29, 50);
     display: flex;
-    background-image: url("../src/assets/placeholder.png");
-    background-size: contain;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    height: 7vmin;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: left;
+    border-bottom: 100px;
+    gap: 10%;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: auto;
+    float: left;    color: rgb(1, 29, 50);
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: left;
+    border-bottom: 100px;
+    gap: 10%;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: auto;
+    float: left;
+
 }
 .App-logo {
     height: 40vmin;
     pointer-events: none;
 }
+.GraphPage{ 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    background-image: url("../src/assets/placeholder.png");
+    background-size: cover;
 
+
+}
 .App-full {
     /* background-color: #856727; */
     min-height: 100vh;
@@ -38,7 +64,24 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
+.register{ 
 
+}
+.RegisterForm{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+    border-bottom: 10px;
+    gap: 4vmin;
+    white-space: nowrap;
+    text-align: center;
+    margin-top:4vmin;
+    float:right;
+    align-items: flex-end;
+}
 .App-body {
     min-height: 75vh;
     display: flex;
@@ -47,7 +90,22 @@
     justify-content: left;
     font-size: calc(10px + 2vmin);
 }
+.CreateNewButton{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 2%;
+    gap: 10%;
+    width: 500px;
+    white-space: nowrap;
 
+
+}
+.tab{ 
+    display: inline-block;
+            margin-left: 40px;
+}
 .Nav-bar {
     display: flex;
     flex-direction: row;
@@ -57,14 +115,46 @@
     color: white;
     margin-left: 2em;
 }
+.Nav-bar-Logout{ 
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin-top: 25px;
+    margin-right: 100px;
+    
+}
+
 
 .App-link {
     color: #61dafb;
 }
 
+.Graph{ 
+    cursor: pointer;
 
+}
 /* Navigation link colors */
+.Log{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    gap: 50px;
 
+}
+.Reg{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
 a {
     color: #FFF;
     text-decoration: none !important;
@@ -94,9 +184,111 @@ a:hover {
     padding: 5px;
     border-radius: 0.5em;
 }
+<<<<<<< HEAD
 .button-back {
     position: absolute;
     left: 5px;
     top: 5px;
 
 }
+=======
+.NoGraphText{ 
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: xx-large;
+    
+
+}
+
+.back {
+    margin: auto;
+    left: 15px;
+    top: 10px;
+    position: absolute;
+}
+
+.Logout {
+    margin: auto;
+    right: 15px;
+    top: 10px;
+    position: absolute;
+}
+
+.App-header {
+    background-color: #61dafb;
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 2em;
+    min-width: 75vw;
+    top: 100px;
+    position: absolute;
+}
+
+.card {
+  
+
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 300px;
+    top: 250px;
+    position: absolute;
+    
+}
+
+#card1 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 15em;
+    min-width: 320px;
+    left : 25%;
+    position: absolute;
+    background-image: url("../src/assets/bar.png");
+    background-size: contain;
+}
+#card2 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 16em;
+    min-width: 320px;
+    right: 25%;
+    position: absolute;
+    background-image: url("../src/assets/barh.png");
+    background-size: contain;
+   
+
+}
+
+#card3 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 15em;
+    min-width: 320px;
+    top: 600px;
+    position: absolute;
+    background-image: url("../src/assets/line.png");
+    background-size: contain;
+    left: 25%;
+}
+
+#card4 {
+    border-radius: 0.5em;
+    opacity: 0.95;
+    min-height: 14em;
+    min-width: 320px;
+    top: 600px;
+    position: absolute;
+    background-image: url("../src/assets/pie.png");
+    background-size: contain;
+    right: 25%;
+}
+.card-title {
+    height: auto;
+}
+.Submit{ 
+    width: 250px;
+    height: 200;
+}
+>>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
