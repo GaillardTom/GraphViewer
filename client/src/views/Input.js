@@ -46,7 +46,7 @@ export default function Input() {
                 <button className="btn btn-primary" onClick={returnToHome} >Back</button>
                 </div>
                 <div className="titleGraph">
-                <h1  id="titleGraphName"className="titleGraphName">
+                <h1  id="titleGraphName" className="titleGraphName">
                     {SetTitle}
                 </h1>
                 </div>
