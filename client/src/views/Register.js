@@ -65,7 +65,7 @@ export default function Register() {
             }).catch(function(response){ 
                 if(response !== 200)
                 { 
-                    console.log("USERANME TAKEN");
+                    console.log("USERNAME TAKEN");
                     setSubmitted(false);
                     setError(true)
                     userNameTaken()

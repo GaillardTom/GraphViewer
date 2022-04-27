@@ -8,7 +8,7 @@ import Register from './views/Register';
 import Login from './views/Login';
 import NotFound from './views/NotFound';
 import Protected from './views/Protected';
-
+import Uploads from './views/Uploads';
 export default function App() {
 
 
@@ -21,6 +21,7 @@ export default function App() {
             <Route path='register' element={<Register/>}/>
             <Route path="login" element={<Login />} />
             <Route path="protected" element={<Protected />} />
+            <Route path="upload" element={<Uploads />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
