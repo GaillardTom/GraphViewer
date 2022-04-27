@@ -9,18 +9,21 @@ const AuthGuard = ({ children }) => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    useEffect(async() => {
-        if (location.pathname !== '/login' && location.pathname !== '/register') {
-            const ans = await verifyAuth()
-            if(!ans){
-                navigate("/login")
+    useEffect(() => {
+        async function Fetch(){ 
+            if (location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== "/") {
+                const ans = await verifyAuth()
+                if(!ans){
+                    navigate("/login")
+                }
+                else
+                {
+                    navigate(location.pathname)
+                    console.log("token is valid");
+                }
             }
-            else
-            {
-                navigate(location.pathname)
-                console.log("token is valid");
-            }
-        }
+        }Fetch()
+        
     }, [location.pathname, navigate])
 
     async function verifyAuth() {

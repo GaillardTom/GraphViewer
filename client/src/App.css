@@ -14,7 +14,19 @@
     height: 40vmin;
     pointer-events: none;
 }
+.GraphPage{ 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    background-image: url("../src/assets/placeholder.png");
+    background-size: cover;
 
+
+}
 .App-full {
     /* background-color: #856727; */
     min-height: 100vh;
@@ -46,9 +58,15 @@
 }
 .CreateNewButton{ 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: left;
+    margin-bottom: 2%;
+    gap: 10%;
+    width: 500px;
+    white-space: nowrap;
+
+
 }
 .tab{ 
     display: inline-block;
@@ -63,6 +81,18 @@
     color: white;
     margin-left: 2em;
 }
+.Nav-bar-Logout{ 
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin-top: 25px;
+    margin-right: 100px;
+    
+}
+
 
 .App-link {
     color: #61dafb;
