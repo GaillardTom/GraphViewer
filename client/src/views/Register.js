@@ -59,7 +59,6 @@ export default function Register() {
                 if (response.status === 200){ 
                     setSubmitted(true);
                     setError(false);
-                    alert('Logged in')
                     navigate("/login");
                 }
             }).catch(function(response){ 

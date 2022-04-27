@@ -28,7 +28,7 @@ function connectToSalesCallback(callback) {
     salesClient.connect((error, res) => {
         if (error) {
             console.error('Could not connect to local db')
-            console.error(err);
+            console.error(error);
         } else {
             console.log('Connected successfully to local server');
             callback();

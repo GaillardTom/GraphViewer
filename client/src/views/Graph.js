@@ -54,7 +54,7 @@ export default function GraphView() {
         console.log('graph: ', graph);
         if (await DeleteGraphServer(graph)) {
             setGraphs(graphs.filter((graph) => graph._id !== graphID))
-            alert('Graph Deleted')
+            //alert('Graph Deleted')
         } else {
             alert("ERROR")
         }
@@ -66,13 +66,18 @@ export default function GraphView() {
         navigate('/')
     }
 
-
+    const back = () => { 
+        navigate('/home')
+    }
 
     return (
 
         <div className="App">
             <div className="Nav-bar">
                 
+            </div>
+            <div className='Nav-Bar'>
+                <Button variant="contained" onClick={Back}>Back</Button>
             </div>
             <div className='Nav-bar-Logout'>
 
