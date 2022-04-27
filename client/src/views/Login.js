@@ -33,11 +33,7 @@ export default function Logging() {
                     console.log(response.data.token);
                     localStorage.setItem('token', response.data.token);
                     alert("You are logged in");
-<<<<<<< HEAD
-                    navigate("/upload");
-=======
                     navigate("/graphs");
->>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
                 }
             }
             ).catch(function (error) {

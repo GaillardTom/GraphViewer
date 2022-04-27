@@ -9,11 +9,8 @@ import Login from './views/Login';
 import Upload from './views/Upload';
 import NotFound from './views/NotFound';
 import Protected from './views/Protected';
-<<<<<<< HEAD
-import Uploads from './views/Uploads';
-=======
 import Graph from './views/Graph';
->>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
+import Input from './views/Input';
 export default function App() {
 
 
@@ -27,11 +24,8 @@ export default function App() {
             <Route path="login" element={<Login />} />
             <Route path='graphs' element={<Graph/>} />
             <Route path="protected" element={<Protected />} />
-<<<<<<< HEAD
-            <Route path="upload" element={<Uploads />} />
-=======
             <Route path="upload" element={<Upload />} />
->>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
+            <Route path="input" element={<Input />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

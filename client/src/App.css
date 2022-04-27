@@ -64,9 +64,6 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
-.register{ 
-
-}
 .RegisterForm{ 
     display: flex;
     flex-direction: column;
@@ -184,14 +181,6 @@ a:hover {
     padding: 5px;
     border-radius: 0.5em;
 }
-<<<<<<< HEAD
-.button-back {
-    position: absolute;
-    left: 5px;
-    top: 5px;
-
-}
-=======
 .NoGraphText{ 
     height: 200px;
     display: flex;
@@ -247,6 +236,8 @@ a:hover {
     position: absolute;
     background-image: url("../src/assets/bar.png");
     background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 #card2 {
     border-radius: 0.5em;
@@ -257,8 +248,8 @@ a:hover {
     position: absolute;
     background-image: url("../src/assets/barh.png");
     background-size: contain;
-   
-
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #card3 {
@@ -271,6 +262,8 @@ a:hover {
     background-image: url("../src/assets/line.png");
     background-size: contain;
     left: 25%;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #card4 {
@@ -283,6 +276,8 @@ a:hover {
     background-image: url("../src/assets/pie.png");
     background-size: contain;
     right: 25%;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 .card-title {
     height: auto;
@@ -291,4 +286,3 @@ a:hover {
     width: 250px;
     height: 200;
 }
->>>>>>> bcc87e691965cb5ec04696203ef3dc9e7dbae686
