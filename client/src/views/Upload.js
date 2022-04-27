@@ -10,7 +10,10 @@ export default function Uploads() {
         navigate('/graphs')
     }
 
-    const sendToInput = () => {
+    const sendToInput = function(type)
+    {
+        localStorage.removeItem('type')
+        localStorage.setItem('type', type)
         navigate('/input')
     }
 
@@ -39,7 +42,7 @@ export default function Uploads() {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="card" id='card1'>
-                                <div className="card-body" onClick={sendToInput}>
+                                <div className="card-body" onClick={() => sendToInput('bar')}>
                                  
                                     
                                    
@@ -50,7 +53,7 @@ export default function Uploads() {
                        
                             <div className="card" id='card4'>
                             
-                                <div className="card-body">
+                                <div className="card-body" onClick={() => sendToInput('pie')}>
                                 
                                 </div>
                             </div>
@@ -59,7 +62,7 @@ export default function Uploads() {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="card" id='card3' onClick={sendToInput}>
-                                <div className="card-body" >
+                                <div className="card-body" onClick={() => sendToInput('line')}>
                                    
                                 </div>
                             </div>
@@ -68,7 +71,7 @@ export default function Uploads() {
                         <div className="col-md-6">
 
                             <div className="card" id='card2'>
-                                <div className="card-body" >
+                                <div className="card-body" onClick={() => sendToInput('barh')}>
                                     
                                    
                                     
