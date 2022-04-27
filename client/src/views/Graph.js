@@ -66,20 +66,18 @@ export default function GraphView() {
         navigate('/')
     }
 
-    const back = () => { 
+    const Back = () => { 
         navigate('/home')
     }
 
     return (
 
         <div className="App">
-            <div className="Nav-bar">
-                
-            </div>
-            <div className='Nav-Bar'>
-                <Button variant="contained" onClick={Back}>Back</Button>
+            <div className="Nav-bar-Back">
+
             </div>
             <div className='Nav-bar-Logout'>
+                    <Button variant="contained" onClick={Back}>Back</Button>
 
                     <Button variant="contained" onClick={Logout}>Logout</Button>
 

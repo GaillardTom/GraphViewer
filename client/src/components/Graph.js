@@ -29,6 +29,7 @@ export default function Graph({ props, onDelete }) {
                 <Grid className='GraphGrid' container spacing={2} columns={5}>
                     <Grid item xs={5}>
                         <Item>
+                            <img src={`http://localhost:8080/static${props.graphLocation}`}></img>
                             {props.title}<span className="tab"></span>
                             {props.type}<span className="tab"></span>
                             {props.date}<span className="tab"></span>

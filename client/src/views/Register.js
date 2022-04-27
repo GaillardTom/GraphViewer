@@ -156,7 +156,7 @@ export default function Register() {
                         value={confirmPassword} type="password" />
                 </div>
                 <div className="register">
-                    <Button onClick={handleSubmit} className="Submit">
+                    <Button onClick={handleSubmit} variant="contained" className="Submit">
                         Submit
                     </Button>
                 </div>

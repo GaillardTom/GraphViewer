@@ -29,7 +29,7 @@ def InsertToGraphDB():
     mydb = myClient["graphViewerUsers"]
     coll = mydb['graph']
     test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
-    path = f'../server/uploads/{test.inserted_id}.png'
+    path = f'/{test.inserted_id}.png'
     print({"graphID": test.inserted_id})
     return ObjectId(test.inserted_id), coll
     
@@ -48,7 +48,7 @@ def FetchData(userID, userColl):
     plt.title(FILTER, fontsize=10)
     print(path)
     userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
-    plt.savefig(path)
+    plt.savefig("../server/public"+path)
 
 def main(): 
     ConnToDb()

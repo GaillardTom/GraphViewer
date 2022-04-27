@@ -118,13 +118,12 @@
 .Nav-bar-Logout{ 
     display: flex;
     flex-direction: row;
-    align-items: right;
+    align-items: flex-end;
     justify-content: right;
     font-size: calc(10px + 2vmin);
     color: white;
-    margin-top: 25px;
-    margin-right: 100px;
-    
+    margin: 10px 10px 100px 10px;    /*gap: 90%;*/
+    justify-content: space-between;    
 }
 
 
@@ -282,4 +281,7 @@ a:hover {
 .Submit{ 
     width: 250px;
     height: 200;
+}
+.Nav-bar-Back{ 
+    display: flex;
 }
