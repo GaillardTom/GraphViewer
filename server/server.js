@@ -9,12 +9,14 @@ const services = require('./services/services');
 const bodyParser = require('body-parser');
 const app = express();
 const graphRoute = require('./graph_routes/graph_routes')
+const path = require('path')
 
 
 
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 
 
