@@ -8,11 +8,13 @@ function Home() {
     return (
         <div className="App">
             <header className="App-full">
-                <div>
+                
                 <h1 className="m-4">
+                <div className="GraphViewergraphsh1">
                     Welcome to Graph Viewer.
-                </h1>
+                    
                 </div>
+                </h1>
                 
                 
                 <div className="Log"> 

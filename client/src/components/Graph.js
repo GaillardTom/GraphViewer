@@ -29,12 +29,12 @@ export default function Graph({ props, onDelete }) {
                 <Grid className='GraphGrid' container spacing={2} columns={5}>
                     <Grid item xs={5}>
                         <Item>
-                            <img src={`http://localhost:8080/static${props.graphLocation}`}></img>
+                            <img width="350" height="250" src={`http://localhost:8080/static${props.graphLocation}`}></img>
                             {props.title}<span className="tab"></span>
                             {props.type}<span className="tab"></span>
                             {props.date}<span className="tab"></span>
                             <Button variant="contained">Open </Button><span className="tab"></span>
-                            <DeleteIcon onClick={() => onDelete(props._id)} style={{ color: 'black', cursor: 'pointer' }} />
+                            <DeleteIcon onClick={() => onDelete(props._id)} style={{ color: 'gray', cursor: 'pointer' }} />
                         </Item>
                         
                         
