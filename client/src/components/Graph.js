@@ -17,8 +17,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-
-
 export default function Graph({ props, onDelete }) {
 
     return (
@@ -36,9 +34,6 @@ export default function Graph({ props, onDelete }) {
                             <Button variant="contained">Open </Button><span className="tab"></span>
                             <DeleteIcon onClick={() => onDelete(props._id)} style={{ color: 'gray', cursor: 'pointer' }} />
                         </Item>
-                        
-                        
-                            
                     </Grid>
                 </Grid>
 

@@ -30,7 +30,7 @@ def InsertToGraphDB():
     coll = mydb['graph']
     test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
     path = f'/{test.inserted_id}.png'
-    print({"graphID": test.inserted_id})
+    print(test.inserted_id)
     return ObjectId(test.inserted_id), coll
     
 
@@ -46,7 +46,7 @@ def FetchData(userID, userColl):
     plt.pie(number, labels= gender, colors= colors, autopct='%1.1f%%')
     plt.suptitle(TITLE, fontsize=14)
     plt.title(FILTER, fontsize=10)
-    print(path)
+    #print(path)
     userColl.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
     plt.savefig("../server/public"+path)
 
