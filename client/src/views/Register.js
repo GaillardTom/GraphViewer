@@ -112,20 +112,21 @@ export default function Register() {
         <div className="App">
              <header className="App-full">
 
-            <div>
-                <h1>User Registration</h1>
-            </div>
+            
 
 
             {/* Calling to the methods */}
-            <div className="messages">
-                {errorMessage()}
-                {successMessage()}
-            </div>
+            
 
-            <form>
+            <div className='RegisterForm'>
                 {/* Labels and inputs for form data */}
-
+                <div>
+                    <h1>User Registration</h1>
+                </div>
+                <div className="messages">
+                    {errorMessage()}
+                    {successMessage()}
+                </div>
                 <div className="register">
                     <label className="label">Username</label>
                     <input onChange={handleUsername} className="input"
@@ -161,7 +162,7 @@ export default function Register() {
                     </Button>
                 </div>
 
-            </form>
+            </div>
             </header>
 
         </div>

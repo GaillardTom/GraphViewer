@@ -4,11 +4,28 @@
     background-size: cover;
 }
 .register{ 
-    color:rgb(1, 29, 50);
+    color: rgb(1, 29, 50);
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: left;
+    border-bottom: 100px;
+    gap: 10%;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: auto;
+    float: left;    color: rgb(1, 29, 50);
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: left;
+    border-bottom: 100px;
+    gap: 10%;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: auto;
+    float: left;
+
 }
 .App-logo {
     height: 40vmin;
@@ -47,7 +64,24 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
+.register{ 
 
+}
+.RegisterForm{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+    border-bottom: 10px;
+    gap: 4vmin;
+    white-space: nowrap;
+    text-align: center;
+    margin-top:4vmin;
+    float:right;
+    align-items: flex-end;
+}
 .App-body {
     min-height: 75vh;
     display: flex;
