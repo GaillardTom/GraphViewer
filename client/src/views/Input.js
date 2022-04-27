@@ -9,7 +9,7 @@ export default function Input() {
     const title = ""
 
     const returnToHome = () => {
-        navigate('/graphs')
+        navigate('/upload')
     }
 
     function SetTitle() 

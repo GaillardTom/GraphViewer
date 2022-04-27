@@ -127,10 +127,14 @@
 .App-link {
     color: #61dafb;
 }
+.GraphViewergraphsh1{ 
+    color: black;
+    white-space: nowrap;
 
+}
 .Graph{ 
     cursor: pointer;
-
+    word-wrap: none;
 }
 /* Navigation link colors */
 .Log{ 
@@ -179,6 +183,8 @@ a:hover {
     width: 45%;
     padding: 5px;
     border-radius: 0.5em;
+    color: black;
+    white-space: nowrap;
 }
 .NoGraphText{ 
     height: 200px;

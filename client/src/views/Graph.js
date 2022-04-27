@@ -67,7 +67,7 @@ export default function GraphView() {
     }
 
     const Back = () => { 
-        navigate('/home')
+        navigate('/')
     }
 
     return (
