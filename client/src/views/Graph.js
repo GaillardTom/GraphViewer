@@ -28,10 +28,16 @@ export default function GraphView() {
     // Fetch Graphs From server
     const fetchGraphs = async () => {
         const res = await axios.get('http://localhost:8080/graph')
-        console.log('res: ', res.data.graphs);
-        const data = await res.data.graphs
-        console.log('data: ', data);
-        return data
+        if(res.status === 200){ 
+            console.log('res: ', res.data.graphs);
+            const data = await res.data.graphs
+            console.log('data: ', data);
+            return data
+        }
+        else if (res.status === 400){ 
+            navigate('/login')
+        }
+        
     }
 
     //Delete Graph from api 
@@ -41,6 +47,9 @@ export default function GraphView() {
         console.log('res: ', res);
         if (res.status === 200) {
             return true
+        }
+        else if(res.status === 400){ 
+            return false
         }
         else {
             return false
@@ -69,27 +78,30 @@ export default function GraphView() {
     const Back = () => { 
         navigate('/')
     }
+    const ViewGraph = (graphLocation) =>{ 
+        console.log('graphLocation: ', graphLocation);
+        localStorage.setItem('graphLocation', graphLocation)
+        navigate('/graphimage')
+    }
 
     return (
 
         <div className="App">
-            <div className="Nav-bar-Back">
+            
 
-            </div>
+            <div className="GraphPage">
             <div className='Nav-bar-Logout'>
                     <Button variant="contained" onClick={Back}>Back</Button>
 
                     <Button variant="contained" onClick={Logout}>Logout</Button>
 
             </div>
-
-            <div className="GraphPage">
                 <div className='CreateNewButton'>
                     <h1 className="titleGraph">Your Graphs</h1>
                     <Button variant="contained" href="/upload">Create New</Button>
                 </div>
                 {graphs.length > 0 ? (
-                    <Graphs graphs={graphs} onDelete={deleteGraph} />
+                    <Graphs graphs={graphs} onDelete={deleteGraph} onClick={ViewGraph} />
 
                 ) : <div className='NoGraphText'>
                     No Graphs To Show

@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -17,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-export default function Graph({ props, onDelete }) {
+export default function Graph({ props, onDelete, onClick}) {
 
     return (
         
@@ -31,7 +31,12 @@ export default function Graph({ props, onDelete }) {
                             {props.title}<span className="tab"></span>
                             {props.type}<span className="tab"></span>
                             {props.date}<span className="tab"></span>
-                            <Button variant="contained">Open </Button><span className="tab"></span>
+                            <Button variant="contained" onClick={()=> { 
+                                alert(props.graphLocation)
+                                localStorage.setItem('graphLocation', props.graphLocation)
+                                onClick(props.graphLocation)
+                            
+                            }}>Open </Button><span className="tab"></span>
                             <DeleteIcon onClick={() => onDelete(props._id)} style={{ color: 'gray', cursor: 'pointer' }} />
                         </Item>
                     </Grid>

@@ -79,6 +79,11 @@
     float:right;
     align-items: flex-end;
 }
+.Back{ 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .App-body {
     min-height: 75vh;
     display: flex;
@@ -107,7 +112,7 @@
     display: flex;
     flex-direction: row;
     align-items: left;
-    justify-content: left;
+    justify-content: space-between;
     font-size: calc(10px + 2vmin);
     color: white;
     margin-left: 2em;
@@ -116,11 +121,12 @@
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    justify-content: right;
+
     font-size: calc(10px + 2vmin);
     color: white;
     margin: 10px 10px 100px 10px;    /*gap: 90%;*/
-    justify-content: space-between;    
+    justify-content: space-between;  
+    position: relative;  
 }
 
 
@@ -293,4 +299,11 @@ a:hover {
 }
 .Nav-bar-Back{ 
     display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin: 10px 10px 100px 10px;    
+
+    justify-content: space-between;  
 }
