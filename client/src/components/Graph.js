@@ -32,7 +32,6 @@ export default function Graph({ props, onDelete, onClick}) {
                             {props.type}<span className="tab"></span>
                             {props.date}<span className="tab"></span>
                             <Button variant="contained" onClick={()=> { 
-                                alert(props.graphLocation)
                                 localStorage.setItem('graphLocation', props.graphLocation)
                                 onClick(props.graphLocation)
                             

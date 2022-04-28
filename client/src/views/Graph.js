@@ -17,26 +17,36 @@ export default function GraphView() {
 
     React.useEffect(() => {
         axios.defaults.headers.common['token'] = localStorage.getItem('token');
+        console.log('localStorage.getItem(token): ', localStorage.getItem('token'));
 
         const getGraphs = async () => {
             const GraphsFromServer = await fetchGraphs()
-            setGraphs(GraphsFromServer)
+            if(GraphsFromServer){ 
+                setGraphs(GraphsFromServer)
+
+            }
+            else{ 
+                console.log("WTF")
+                navigate('/login')
+            }
 
         }
         getGraphs()
     }, [])
     // Fetch Graphs From server
     const fetchGraphs = async () => {
-        const res = await axios.get('http://localhost:8080/graph')
-        if(res.status === 200){ 
+        const res = await axios.get('http://localhost:8080/graph').catch((response)=>{ 
+            console.log('res.status === 400: ', response);
+            navigate('/login')
+            return false
+        })
+        if(res.status == 200){ 
             console.log('res: ', res.data.graphs);
             const data = await res.data.graphs
             console.log('data: ', data);
             return data
         }
-        else if (res.status === 400){ 
-            navigate('/login')
-        }
+        
         
     }
 
@@ -57,7 +67,7 @@ export default function GraphView() {
 
     }
 
-    //Delete Graph 
+    //Delete Graph  
     const deleteGraph = async (graphID) => {
         const graph = graphs.find((graph) => graph._id === graphID)
         console.log('graph: ', graph);
