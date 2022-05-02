@@ -50,37 +50,40 @@ export default function Logging() {
 
     return (
         <div className="App">
+            <div className='App-full'>
 
-            <div className="m-4">
-                <label>Username:</label>
-                <input
-                    onChange={handleUsername}
-                    value={username}
-                    id="username"
-                    type="username"
-                    className="m-4"
-                    placeholder="Enter username"
-                />
-            </div>
-            <div className="m-4">
-                <label>Password:</label>
-                <input
-                    id="password"
-                    onChange={handlePassword}
-                    value={password}
-                    type="password"
-                    className="m-4"
-                    placeholder="Enter password"
-                />
-                <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
-                </p>
-            </div>
-            <div className="m-4">
-                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-                    Submit
-                </button>
+            
+                <div className="m-4">
+                    <label>Username:</label>
+                    <input
+                        onChange={handleUsername}
+                        value={username}
+                        id="username"
+                        type="username"
+                        className="m-4"
+                        placeholder="Enter username"
+                    />
+                </div>
+                <div className="m-4">
+                    <label>Password:</label>
+                    <input
+                        id="password"
+                        onChange={handlePassword}
+                        value={password}
+                        type="password"
+                        className="m-4"
+                        placeholder="Enter password"
+                    />
+                    <p className="forgot-password text-right">
+                        Forgot <a href="#">password?</a>
+                    </p>
+                </div>
+                <div className="m-4">
+                    <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+                        Submit
+                    </button>
 
+                </div>
             </div>
 
         </div>
