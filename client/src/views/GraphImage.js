@@ -60,9 +60,11 @@ function Protected() {
 
 
                 <h1 className="m-4">Your Graphs</h1>
-                <img src={graphImage}></img>
+                <img width="55%" src={graphImage}></img>
 
+                
             </header>
+            
         </div>
 
 

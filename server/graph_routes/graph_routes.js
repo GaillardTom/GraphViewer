@@ -5,6 +5,7 @@ const services = require('../services/services')
 const { GetUserIDWithJWT } = require('../middlewares/auth')
 const { GetGraphLocation, GetAllGraph, DeleteGraphOfUser,GetGraphsByType } = require('../database')
 const { spawn } = require('child_process');
+const {rm} = require('fs/promises')
 
 //const defaults = { cwd: "..\\scripts" }
 
@@ -287,12 +288,11 @@ graph.delete('/:id', async function (req, res) {
         const ids = ObjectId(req.params.id);
         const userID = await GetUserIDWithJWT(req.header('token'))
         if (ids) {
-
                 // CREATE A FUNCTION THAT TAKES THIS AND PUT IT IN DB NO DATABASE ON ROUTES GADDEM FAIS 30 FOIS JE LE DIT CALISS
                 const result = await DeleteGraphOfUser(ids, ObjectId(userID))
                 if(result){ 
+                        await rm(`../server/public/${req.params.id}.png`)
                         res.send('Graph deleted').status(200);
-
                 }else {
                         res.send('Graph not found').status(404);
                 }              

@@ -55,7 +55,7 @@ def makePie(doc, userID, coll):
     plt.bar(label, ypoints)
     plt.xticks(rotation=45)
     plt.title(f"{TITLE} \n{FILTER}")
-    
+    plt.tight_layout(pad=1)
     updateDoc = coll.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
     plt.savefig("../server/public"+path)
 
