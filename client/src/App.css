@@ -225,7 +225,9 @@ a:hover {
     top: 100px;
     position: absolute;
 }
-
+.error{ 
+    color:red;
+}
 .card {
   
 

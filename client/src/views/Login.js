@@ -3,48 +3,62 @@ import '../App.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { red } from '@mui/material/colors';
 export default function Logging() {
 
     const navigate = useNavigate();
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
+
     const handleUsername = (e) => {
         setUserName(e.target.value)
-        
+        setError(false)
+
     }
     const handlePassword = (e) => {
         setPassword(e.target.value)
+        setError(false)
     }
 
-
+    const handleErrors = () => {
+        return (
+            <div
+                className="error"
+                style={{
+                    color: red,
+                    display: error ? '' : 'none',
+                }}>
+                <h1>Invalid Username or Password</h1>
+            </div>
+        );
+    }
     const handleSubmit = async (e) => {
-        if (username !== "" && password !== "") {
 
 
-            axios.post('http://localhost:8080/login', {
-                username: username,
-                password: password
-            }
-            ).then(function (response) {
-                console.log(response);
-                console.log(response.data);
 
-                if (response.status === 200) {
-                    console.log(response.data.token);
-                    localStorage.setItem('token', response.data.token);
-                    alert("You are logged in");
-                    navigate("/graphs");
-                }
-            }
-            ).catch(function (error) {
-                alert(error);
-            }
-            );
-
+        axios.post('http://localhost:8080/login', {
+            username: username,
+            password: password
         }
-        else {
-            alert("Please fill all fields");
+        ).then(function (response) {
+            console.log(response);
+            console.log(response.data);
+
+            if (response.status === 200) {
+                console.log(response.data.token);
+                localStorage.setItem('token', response.data.token);
+                navigate("/graphs");
+                setError(false);
+
+            }
         }
+        ).catch(function (error) {
+            setError(true);
+        }
+        );
+
+
 
     }
 
@@ -52,7 +66,9 @@ export default function Logging() {
         <div className="App">
             <div className='App-full'>
 
-            
+                <div className="messages">
+                    {handleErrors()}
+                </div>
                 <div className="m-4">
                     <label>Username:</label>
                     <input
@@ -69,6 +85,8 @@ export default function Logging() {
                     <input
                         id="password"
                         onChange={handlePassword}
+                        
+
                         value={password}
                         type="password"
                         className="m-4"
@@ -91,7 +109,7 @@ export default function Logging() {
 
 
 
-            );
+    );
 
 
 }
