@@ -2,6 +2,7 @@
     text-align: center;
     background-image: url("../src/assets/placeholder.png");
     background-size: cover;
+    width: 100%;
 }
 .register{ 
     color: rgb(1, 29, 50);
@@ -40,13 +41,13 @@
     font-size: calc(10px + 2vmin);
     color: white;
     /*background-image: url("../src/assets/placeholder.png");*/
-    /*background-size: cover;*/
+    background-size: cover;
 
 
 }
 .App-full {
     /* background-color: #856727; */
-    min-height: 100vh;
+    min-height: 120vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,10 +120,10 @@
 .Nav-bar-Logout{ 
     display: flex;
     flex-direction: row;
-    width: 99%;
+    width: 95%;
     font-size: calc(10px + 2vmin);
     color: white;
-    margin: 1% 10px 1% 10px;    /*gap: 90%;*/
+    margin: 1% 5% 1% 5%;    /*gap: 90%;*/
     justify-content: space-between;  
     position: relative;  
 }

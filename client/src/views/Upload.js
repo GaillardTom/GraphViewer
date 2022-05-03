@@ -25,7 +25,7 @@ export default function Uploads() {
 
     return(
     <div className="App">
-            <header className="App-full">
+            <div className="App-full">
             <h1 className="App-header">
                     Choose the graph to produce.
                 </h1>
@@ -36,7 +36,6 @@ export default function Uploads() {
                 <button className='btn btn-primary' onClick={Logout}>Log out</button>
                 </div>
                 
-            </header>
           <body>
                 <div className="container">
                     <div className="row">
@@ -81,6 +80,8 @@ export default function Uploads() {
                     </div>
             </div>
             </body>
+            </div>
+
         </div>
     );
 }
