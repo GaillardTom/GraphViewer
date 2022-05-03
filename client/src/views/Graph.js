@@ -21,11 +21,11 @@ export default function GraphView() {
 
         const getGraphs = async () => {
             const GraphsFromServer = await fetchGraphs()
-            if(GraphsFromServer){ 
+            if (GraphsFromServer) {
                 setGraphs(GraphsFromServer)
 
             }
-            else{ 
+            else {
                 console.log("WTF")
                 navigate('/login')
             }
@@ -35,19 +35,19 @@ export default function GraphView() {
     }, [])
     // Fetch Graphs From server
     const fetchGraphs = async () => {
-        const res = await axios.get('http://localhost:8080/graph').catch((response)=>{ 
+        const res = await axios.get('http://localhost:8080/graph').catch((response) => {
             console.log('res.status === 400: ', response);
             navigate('/login')
             return false
         })
-        if(res.status == 200){ 
+        if (res.status == 200) {
             console.log('res: ', res.data.graphs);
             const data = await res.data.graphs
             console.log('data: ', data);
             return data
         }
-        
-        
+
+
     }
 
     //Delete Graph from api 
@@ -58,7 +58,7 @@ export default function GraphView() {
         if (res.status === 200) {
             return true
         }
-        else if(res.status === 400){ 
+        else if (res.status === 400) {
             return false
         }
         else {
@@ -85,10 +85,10 @@ export default function GraphView() {
         navigate('/')
     }
 
-    const Back = () => { 
+    const Back = () => {
         navigate('/')
     }
-    const ViewGraph = (graphLocation) =>{ 
+    const ViewGraph = (graphLocation) => {
         console.log('graphLocation: ', graphLocation);
         localStorage.setItem('graphLocation', graphLocation)
         navigate('/graphimage')
@@ -97,29 +97,30 @@ export default function GraphView() {
     return (
 
         <div className="App">
-            
-
-            <div className="GraphPage">
-            <div className='Nav-bar-Logout'>
+            <div className='App-full'>
+                <div className='Nav-bar-Logout'>
                     <Button variant="contained" onClick={Back}>Back</Button>
 
                     <Button variant="contained" onClick={Logout}>Logout</Button>
 
-            </div>
-                <div className='CreateNewButton'>
-                    <h1 className="titleGraph">Your Graphs</h1>
-                    <Button variant="contained" href="/upload">Create New</Button>
                 </div>
-                {graphs.length > 0 ? (
-                    <Graphs graphs={graphs} onDelete={deleteGraph} onClick={ViewGraph} />
 
-                ) : <div className='NoGraphText'>
-                    No Graphs To Show
+                <div className="GraphPage">
+
+                    <div className='CreateNewButton'>
+                        <h1 className="titleGraph">Your Graphs</h1>
+                        <Button variant="contained" href="/upload">Create New</Button>
+                    </div>
+                    {graphs.length > 0 ? (
+                        <Graphs graphs={graphs} onDelete={deleteGraph} onClick={ViewGraph} />
+
+                    ) : <div className='NoGraphText'>
+                        No Graphs To Show
+                    </div>
+                    }
                 </div>
-                }
+
             </div>
-
-
 
 
         </div>

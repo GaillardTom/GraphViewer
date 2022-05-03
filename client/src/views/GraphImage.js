@@ -5,6 +5,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import { sizeWidth } from '@mui/system';
 
 function Protected() {
     const [graphImage, setGraphImage] = React.useState('')
@@ -44,27 +45,19 @@ function Protected() {
     }
 
     return (
-
-
         <div className="App">
-
-            <header className="GraphPage">
-
-
-                <div className='Nav-bar'>
+            <div className='App-full'>
+            <div className='Nav-bar-Logout'>
                     <Button variant="contained" onClick={Back}>Back</Button>
-
                     <Button variant="contained" onClick={Logout}>Logout</Button>
-
-                </div>
-
-
-                <h1 className="m-4">Your Graphs</h1>
-                <img width="40%" src={graphImage}></img>
-
-                
-            </header>
-            
+                    
+            </div> 
+            <div className='GraphPage'>
+                <h1>Your Graphs</h1>
+                <img width='110%' src={graphImage}></img>
+            </div>
+        
+            </div>
         </div>
 
 

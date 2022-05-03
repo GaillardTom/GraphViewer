@@ -39,8 +39,8 @@
     justify-content: top;
     font-size: calc(10px + 2vmin);
     color: white;
-    background-image: url("../src/assets/placeholder.png");
-    background-size: cover;
+    /*background-image: url("../src/assets/placeholder.png");*/
+    /*background-size: cover;*/
 
 
 }
@@ -54,7 +54,6 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
-
 .App-header {
     min-height: 25vh;
     display: flex;
@@ -120,11 +119,10 @@
 .Nav-bar-Logout{ 
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
-
+    width: 99%;
     font-size: calc(10px + 2vmin);
     color: white;
-    margin: 10px 10px 100px 10px;    /*gap: 90%;*/
+    margin: 1% 10px 1% 10px;    /*gap: 90%;*/
     justify-content: space-between;  
     position: relative;  
 }
