@@ -161,11 +161,11 @@ graph.post('/barGraph', async(req, res) => {
  */
 graph.post('/columnGraph', async(req, res) => {
         var dataToSend;
-        const filter = req.body.filter
+        const filter = req.body.filter;
         console.log('filter: ', filter);
         const user = await GetUserIDWithJWT(req.header('token'))
         console.log('user: ', user);
-        const title = req.body.title
+        const title = req.body.title;
         console.log('title: ', title);
         // spawn new child process to call the python script
         const python = await spawn('python', ['..\\scripts\\columnGraph.py', filter, title, user]);

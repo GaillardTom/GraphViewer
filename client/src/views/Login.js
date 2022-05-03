@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { red } from '@mui/material/colors';
+import Button from '@mui/material/Button';
+
 export default function Logging() {
 
     const navigate = useNavigate();
@@ -19,6 +21,9 @@ export default function Logging() {
     const handlePassword = (e) => {
         setPassword(e.target.value)
         setError(false)
+    }
+    const Back = () => {
+        navigate('/')
     }
 
     const handleErrors = () => {
@@ -64,7 +69,13 @@ export default function Logging() {
 
     return (
         <div className="App">
-            <div className='App-full'>
+
+            <header className='App-full'>
+
+                <div className='Nav-bar-Logout'>
+                    <Button variant="contained" onClick={Back}>Back</Button>
+
+                </div>
 
                 <div className="messages">
                     {handleErrors()}
@@ -85,7 +96,7 @@ export default function Logging() {
                     <input
                         id="password"
                         onChange={handlePassword}
-                        
+
 
                         value={password}
                         type="password"
@@ -102,7 +113,7 @@ export default function Logging() {
                     </button>
 
                 </div>
-            </div>
+            </header>
 
         </div>
 
