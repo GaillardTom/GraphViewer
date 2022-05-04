@@ -5,6 +5,12 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 
+
+import PiePic from '../assets/pie.png';
+import BarPic from '../assets/bar.png';
+import LinePic from '../assets/line.png';
+import BarhPic from '../assets/barh.png';
+
 export default function Uploads() {
 
     const navigate = useNavigate()
@@ -27,10 +33,18 @@ export default function Uploads() {
 
     const Img = styled('img')({
         margin: 'auto',
-        display: 'block',
-        maxWidth: 'auto',
-        maxHeight: 'auto',
+        display: 'flex',
+        maxWidth: '70%',
+        maxHeight: '90%',
+        width: '600px',
+        height: '450px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '50%',
+        marginBottom: '40px',
       });
+
+    
 
     return (
         <div className="App">
@@ -45,13 +59,13 @@ export default function Uploads() {
                     <button className='btn btn-primary' onClick={Logout}>Log out</button>
                 </div>
 
-                    <Grid justifyContent="center" alignItems="center" container rowSpacing={12} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                    <Grid justifyContent="center" alignItems="center" container rowSpacing={12} columnSpacing={{ xs: 1, sm: 2, md: 3 }} columns={2}>
                         
-                    <div className="card1">
+                    <div className="">
                         <Grid>
                             
                                 
-                                <Img className="card-body" onClick={() => sendToInput('bar')}  src="../src/assets/bar.png" alt="test"></Img>
+                              <Img className="card-body" onClick={() => sendToInput('bar')}  src={BarPic} alt="Bar Graph"></Img>
                                 
 
                             
@@ -62,7 +76,7 @@ export default function Uploads() {
 
                                 <div className="card4">
 
-                                      <Img className="card-body" onClick={() => sendToInput('pie')}>
+                                      <Img className="card-body" onClick={() => sendToInput('pie')} src={PiePic} alt="Pie Graph">
                                       </Img>
 
                                 
@@ -72,7 +86,7 @@ export default function Uploads() {
                         <Grid>
 
                                 <div className="card3">
-                                    <Img className="card-body" onClick={() => sendToInput('line')}>
+                                    <Img className="card-body"  onClick={() => sendToInput('line')} src={LinePic} alt="Line Graph">
                                     </Img>
 
 
@@ -80,7 +94,7 @@ export default function Uploads() {
                         </Grid>
                         <Grid>
                             <div className='card2'>
-                                <Img className="card-body" onClick={() => sendToInput('barh')}>
+                                <Img className="card-body" onClick={() => sendToInput('barh')} src={BarhPic} alt="Barh Graph">
 
 
 

@@ -231,36 +231,13 @@ a:hover {
     color:red;
 }
 
-.card1 {
-    
-    background-size: cover;
-    background-repeat: no-repeat;
+.card-body {
+    display: flex;
+    padding: 0px;
+    position: relative;
+    flex-direction: column;
     cursor: pointer;
-    
-    
-}
-.card2 {
-   
-    background-image: url("../src/assets/barh.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    cursor: pointer;
-}
 
-.card3 {
-    
-    background-image: url("../src/assets/line.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    cursor: pointer;
-}
-
-.card4 {
-  
-    background-image: url("../src/assets/pie.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    cursor: pointer;
 }
 .card-title {
     height: auto;
