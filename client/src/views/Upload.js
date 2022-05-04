@@ -45,57 +45,52 @@ export default function Uploads() {
                     <button className='btn btn-primary' onClick={Logout}>Log out</button>
                 </div>
 
-                <Box sx={{ width: '100%' }}>
                     <Grid justifyContent="center" alignItems="center" container rowSpacing={12} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                        <Grid Img xs="auto">
-                            <Img>
-                                <div className="card1">
-                                    <div className="card-body" onClick={() => sendToInput('bar')}>
+                        
+                    <div className="card1">
+                        <Grid>
+                            
+                                
+                                <Img className="card-body" onClick={() => sendToInput('bar')}  src="../src/assets/bar.png" alt="test"></Img>
+                                
 
-
-
-                                    </div>
-                                </div>
-
-                            </Img>
+                            
                         </Grid>
-                        <Grid Img xs="auto">
-                            <Img>
+                    </div>
+                        <Grid>
+                          
 
                                 <div className="card4">
 
-                                    <div className="card-body" onClick={() => sendToInput('pie')}>
+                                      <Img className="card-body" onClick={() => sendToInput('pie')}>
+                                      </Img>
 
-                                    </div>
+                                
                                 </div>
 
-                            </Img>
                         </Grid>
-                        <Grid Img xs="auto">
-                            <Img>
+                        <Grid>
 
-                                <div className="card3" onClick={sendToInput}>
-                                    <div className="card-body" onClick={() => sendToInput('line')}>
+                                <div className="card3">
+                                    <Img className="card-body" onClick={() => sendToInput('line')}>
+                                    </Img>
 
-                                    </div>
+
                                 </div>
-                            </Img>
                         </Grid>
-                        <Grid Img xs="auto">
-                            <Img className='card2'>
-                            <div className="card2">
-                                <div className="card-body" onClick={() => sendToInput('barh')}>
+                        <Grid>
+                            <div className='card2'>
+                                <Img className="card-body" onClick={() => sendToInput('barh')}>
 
 
 
-                                </div>
+
+
+                                </Img>
                             </div>
 
-
-                            </Img>
                         </Grid>
                     </Grid>
-                </Box>
             </header>
         </div >
     );

@@ -106,13 +106,19 @@ export default function Register() {
             </div>
         )
     }
+    const Back = () => { 
+        navigate('/')
+    }
 
     return (
         <div className="App">
              <header className="App-full">
 
             
+             <div className='Nav-bar-Logout'>
+                    <Button variant="contained" onClick={Back}>Back</Button>
 
+                </div>
 
             {/* Calling to the methods */}
             
