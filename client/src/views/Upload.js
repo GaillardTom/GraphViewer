@@ -34,14 +34,15 @@ export default function Uploads() {
     const Img = styled('img')({
         margin: 'auto',
         display: 'flex',
+
         maxWidth: '70%',
         maxHeight: '90%',
-        width: '600px',
-        height: '450px',
+        width: '500px',
+        height: '350px',
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: '50%',
-        marginBottom: '40px',
+        marginTop: '5%',
+        marginBottom: '20px',
       });
 
     
@@ -58,8 +59,9 @@ export default function Uploads() {
                 <div className="Logout">
                     <button className='btn btn-primary' onClick={Logout}>Log out</button>
                 </div>
-
-                    <Grid justifyContent="center" alignItems="center" container rowSpacing={12} columnSpacing={{ xs: 1, sm: 2, md: 3 }} columns={2}>
+                <div className="cardHolder">
+                    <Grid    
+justifyContent="center" alignItems="center" container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 2 }} columns={2}>
                         
                     <div className="">
                         <Grid>
@@ -105,6 +107,7 @@ export default function Uploads() {
 
                         </Grid>
                     </Grid>
+                    </div>
             </header>
         </div >
     );

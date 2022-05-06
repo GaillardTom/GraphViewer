@@ -195,7 +195,13 @@ async function GetAllGraph(userID){
         return false
     }
 }
+async function GetAllLocations(){ 
+    const distinctValues = await salesDatabase.collection('sales').distinct("storeLocation");
+    console.log('distinctValues: ', distinctValues);
+    return distinctValues
 
+
+}
 module.exports = {
     connectCallback: connectToSalesCallback,
     database: salesDatabase,
@@ -209,5 +215,6 @@ module.exports = {
     FindUser,
     GetAllGraph,
     DeleteGraphOfUser,
-    GetGraphsByType
+    GetGraphsByType,
+    GetAllLocations
 }

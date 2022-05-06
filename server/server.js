@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express')
 const cors = require('cors');
-const { connectCallback, CreateUser, Connect, connectToUsersDB } = require('./database');
+const { connectCallback, CreateUser, Connect, connectToUsersDB, GetAllLocations} = require('./database');
 var jwt = require('jsonwebtoken');
 const {CheckJWT} = require('./middlewares/auth');
 var morgan = require('morgan');
@@ -119,7 +119,17 @@ app.post('/login', async(req,res)=> {
 app.use(CheckJWT)
 //GRAPH ROUTE 
 app.use('/graph', graphRoute)
+app.get('/locations', async(req,res)=> {
+    
+    const ans = await GetAllLocations()
+    if(ans){ 
+        res.status(200).send(ans)
 
+    }else{ 
+        res.status(400).send("Error")
+
+    }
+})
 
 const PORT = 8080;
 connectCallback(() => {
