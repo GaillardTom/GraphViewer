@@ -59,6 +59,7 @@ export default function Register() {
                 if (response.status === 200){ 
                     setSubmitted(true);
                     setError(false);
+                    alert('User created successfully');
                     navigate("/login");
                 }
             }).catch(function(response){ 
