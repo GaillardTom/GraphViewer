@@ -11,17 +11,23 @@ export default function Uploads() {
         navigate('/graphs')
     }
 
-    const sendToInput = (type) => {
-        localStorage.setItem('type', type)
+    const navigateToInput = () => {
         navigate('/input')
     }
+
+    function send(type)
+    {
+        localStorage.removeItem('type')
+        localStorage.setItem('type', type)
+        navigateToInput()
+    }
+    
 
     const Logout = () => {
         localStorage.removeItem('token')
         navigate('/login')
     }
 
-   
 
     return(
     <div className="App">
@@ -42,8 +48,8 @@ export default function Uploads() {
                     <div className="row">
                         <div className="col-md-6">
                             <div className="card" id='card1'>
-                                <div className="card-body" onClick={sendToInput('bar')}>
-                                
+                                <div className="card-body" onClick={send('bar')}>
+                                 
                                     
                                    
                                 </div>
@@ -51,7 +57,7 @@ export default function Uploads() {
                         </div>
                         <div className="col-md-6">
                        
-                            <div className="card" id='card4' onClick={sendToInput('pie')}>
+                            <div className="card" id='card4'>
                             
                                 <div className="card-body">
                                 
@@ -61,7 +67,7 @@ export default function Uploads() {
                     </div>
                     <div className="row">
                         <div className="col-md-6">
-                            <div className="card" id='card3' onClick={sendToInput('line')}>
+                            <div className="card" id='card3' >
                                 <div className="card-body" >
                                    
                                 </div>
@@ -70,7 +76,7 @@ export default function Uploads() {
 
                         <div className="col-md-6">
 
-                            <div className="card" id='card2' onClick={sendToInput('barh')}>
+                            <div className="card" id='card2' >
                                 <div className="card-body" >
                                     
                                    
