@@ -6,11 +6,10 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { Navigate, useNavigate } from 'react-router-dom';
-import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { FormControl } from '@mui/material';
-
+import {MultipleLocations} from './MultipleLocations'
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -28,7 +27,6 @@ export default function Graph({ location, onChange, onClick }) {
 
         <div className="Card">
 
-            {console.log('location', location)}
             <Grid className='GraphGrid' container spacing={2} columns={5}>
                 <Grid item xs={5}>
                     <Item>
@@ -36,16 +34,9 @@ export default function Graph({ location, onChange, onClick }) {
 
 
                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={{location}}
-                                label="Location"
-                                onChange={onChange}
-                            >
+                            
                             <MenuItem value={location}>{location}</MenuItem>
-                               
-                            </Select>
+                            <MultipleLocations props={location} onChange={onChange} />
                             <Button variant="contained" onClick={() => {
                                 localStorage.setItem('graphLocation', location.graphLocation)
                                 onClick()

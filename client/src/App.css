@@ -2,7 +2,23 @@
     text-align: center;
     background-image: url("../src/assets/placeholder.png");
     background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
+}
+.userTitle{ 
+    height: 10%;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8%;
+    text-align: center;
+    border-bottom: 100%;
+}
+.CreateNew{ 
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+
 }
 .register{ 
     color: rgb(1, 29, 50);

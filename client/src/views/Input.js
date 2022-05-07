@@ -3,22 +3,68 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import GraphFilter from '../components/GraphFilter'
 import axios from 'axios';
-import {multipleLocations} from '../components/multipleGraphFilter'
-
+import { MultipleLocations } from '../components/MultipleLocations';
 
 export default function Input() {
 
     const [possLocation, setPossLocation] = useState([]);
     const [location, setLocation] = useState('');
-
+    const [title, setTitle] = useState('');
     const navigate = useNavigate()
-    const title = ""
-
+    
     const returnToHome = () => {
         navigate('/upload')
     }
-    const Clicked = (filter) => {
-        console.log('filter: ', filter);
+    const Clicked = async() => {
+        if(location !== "" ){ 
+            //MAKE API CALL TO SERVER CREATE GOOD GRAPH WITH TITLE AND SHIT 
+            console.log('filter: ', location);
+            alert('Graph Created')
+
+            await CreateNewGraph()
+        }        
+    }
+
+    const CreateNewGraph = async() => { 
+        const type = localStorage.getItem('type')
+
+        if(type === 'line'){ 
+            const req = await axios.post('http://localhost:8080/graph/barGraph',{"filter": location, "title": title})
+            console.log('req: ', req);
+            if(req.status === 200){ 
+                console.log(req.data)
+                const graphID = req.data.data
+                const path = `/${graphID}.png`
+                console.log('path: ', path);
+
+                localStorage.setItem('graphLocation', path)
+                navigate('/graphimage')
+            }
+        }else if (type ===  'pie'){ 
+            const req = await axios.post('http://localhost:8080/graph/pieGraph', {"filter": location, "title": title})
+            console.log('req: ', req);
+            if(req.status === 200){ 
+                console.log(req.data.data)
+                const graphID = req.data.data
+                const path = `/${graphID}.png`
+                console.log('path: ', path);
+
+                localStorage.setItem('graphLocation', path)
+                navigate('/graphimage')
+            }
+        }else if (type === 'barh'){ 
+            const req = await axios.post('http://localhost:8080/graph/columnGraph', {"filter": location, "title": title})
+            console.log('req: ', req);
+            if(req.status === 200){ 
+                console.log(req.data.data)
+                const graphID = req.data.data
+                const path = `/${graphID}.png`
+                console.log('path: ', path);
+
+                localStorage.setItem('graphLocation', path)
+                navigate('/graphimage')
+            }
+        }
 
 
 
@@ -30,17 +76,19 @@ export default function Input() {
 
     useEffect(() => {
         axios.defaults.headers.common['token'] = localStorage.getItem('token');
+        
 
-        const getLoc = async() => { 
+        const fetchLocations = async() => { 
 
-            const ans = await fetchLocations();
+            const ans = await fetchLocationsFromDB();
             if(ans){ 
-                console.log('ans: ', ans);
-
+                console.log('ANs', ans)
                 setPossLocation(ans)
+                console.log('test',possLocation)
             }
 
         }
+        fetchLocations()
         const type = localStorage.getItem('type')
 
         console.log(":dsadas")
@@ -55,13 +103,11 @@ export default function Input() {
         }
         else if (type === 'barh') {
             document.getElementById("titleGraphName").innerHTML = 'Age group per region'
-        }; 
-        
-        getLoc()
+        }
 
 
     }, [])
-    const fetchLocations = async() => { 
+    const fetchLocationsFromDB = async() => { 
 
         const res = await axios.get('http://localhost:8080/locations').catch((response) => {
             console.log('res.status === 400: ', response);
@@ -76,7 +122,10 @@ export default function Input() {
         }
     }
 
-
+    const changeUserTitle = (e) => { 
+        setTitle(e.target.value)
+        console.log(e.target.value)
+    }
 
 
 
@@ -86,16 +135,14 @@ export default function Input() {
 return (
     <div className="App">
         <div className="App-full">
-            <div className="back">
+            <div className="Nav-bar-Logout">
                 <button className="btn btn-primary" onClick={returnToHome} >Back</button>
             </div>
             <div className="titleGraph">
                 <h1 id="titleGraphName" className="titleGraphName"></h1>
             </div>
             <div>
-                <multipleLocations props={possLocation} onChange={handleChange} onClick={Clicked} />
-                <GraphFilter props={possLocation} onChange={handleChange} onClick={Clicked} />
-
+                <MultipleLocations currentLoc={location} location={possLocation} onChange={handleChange} onClick={Clicked} changeTitle={changeUserTitle} />
             </div>
 
 

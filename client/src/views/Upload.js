@@ -53,10 +53,9 @@ export default function Uploads() {
                 <h1 className="App-header">
                     Choose the graph to produce.
                 </h1>
-                <div className="back">
+                <div className="Nav-bar-Logout">
                     <button className="btn btn-primary" onClick={returnToHome} >Back</button>
-                </div>
-                <div className="Logout">
+                
                     <button className='btn btn-primary' onClick={Logout}>Log out</button>
                 </div>
                 <div className="cardHolder">
