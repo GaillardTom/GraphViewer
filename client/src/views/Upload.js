@@ -20,22 +20,12 @@ export default function Uploads() {
         navigate('/graphs')
     }
 
-<<<<<<< HEAD
-    const navigateToInput = () => {
-=======
     const sendToInput = function (type) {
         localStorage.removeItem('type')
         localStorage.setItem('type', type)
->>>>>>> 1f3dded7348c4e8ce802b9e84b7b9a4ecf7f782c
         navigate('/input')
     }
 
-    function send(type)
-    {
-        localStorage.removeItem('type')
-        localStorage.setItem('type', type)
-        navigateToInput()
-    }
     
 
     const Logout = () => {
@@ -72,32 +62,12 @@ export default function Uploads() {
                 <div className="Logout">
                     <button className='btn btn-primary' onClick={Logout}>Log out</button>
                 </div>
-<<<<<<< HEAD
-                
-            </header>
-          <body>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="card" id='card1'>
-                                <div className="card-body" onClick={send('bar')}>
-                                 
-                                    
-                                   
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                       
-                            <div className="card" id='card4'>
-=======
                 <div className="cardHolder">
                     <Grid    
 justifyContent="center" alignItems="center" container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 2 }} columns={2}>
                         
                     <div className="">
                         <Grid>
->>>>>>> 1f3dded7348c4e8ce802b9e84b7b9a4ecf7f782c
                             
                                 
                               <Img className="card-body" onClick={() => sendToInput('bar')}  src={BarPic} alt="Bar Graph"></Img>
@@ -116,20 +86,6 @@ justifyContent="center" alignItems="center" container rowSpacing={1} columnSpaci
 
                                 
                                 </div>
-<<<<<<< HEAD
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="card" id='card3' >
-                                <div className="card-body" >
-                                   
-                                </div>
-                            </div>
-                        </div>
-=======
->>>>>>> 1f3dded7348c4e8ce802b9e84b7b9a4ecf7f782c
 
                         </Grid>
                         <Grid>
@@ -139,14 +95,6 @@ justifyContent="center" alignItems="center" container rowSpacing={1} columnSpaci
                                     </Img>
 
 
-<<<<<<< HEAD
-                            <div className="card" id='card2' >
-                                <div className="card-body" >
-                                    
-                                   
-                                    
-=======
->>>>>>> 1f3dded7348c4e8ce802b9e84b7b9a4ecf7f782c
                                 </div>
                         </Grid>
                         <Grid>

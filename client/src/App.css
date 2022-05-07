@@ -240,57 +240,6 @@ a:hover {
     color:red;
 }
 
-<<<<<<< HEAD
-#card1 {
-    border-radius: 0.5em;
-    opacity: 0.95;
-    min-height: 16em;
-    min-width: 320px;
-    left : 25%;
-    position: absolute;
-    background-image: url("../src/assets/bar.png");
-    background-size: contain;
-    cursor: pointer;
-}
-#card2 {
-    border-radius: 0.5em;
-    opacity: 0.95;
-    min-height: 16em;
-    min-width: 320px;
-    right: 25%;
-    position: absolute;
-    background-image: url("../src/assets/barh.png");
-    background-size: contain;
-    cursor: pointer;
-
-}
-
-#card3 {
-    border-radius: 0.5em;
-    opacity: 0.95;
-    min-height: 15em;
-    min-width: 320px;
-    top: 600px;
-    position: absolute;
-    background-image: url("../src/assets/line.png");
-    background-size: contain;
-    left: 25%;
-    cursor: pointer;
-}
-
-#card4 {
-    border-radius: 0.5em;
-    opacity: 0.95;
-    min-height: 15em;
-    min-width: 320px;
-    top: 600px;
-    position: absolute;
-    background-image: url("../src/assets/pie.png");
-    background-size: contain;
-    right: 25%;
-    cursor: pointer;
-}
-=======
 .card-body {
     display: flex;
     padding: 0px;
@@ -299,7 +248,6 @@ a:hover {
     cursor: pointer;
 
 }
->>>>>>> 1f3dded7348c4e8ce802b9e84b7b9a4ecf7f782c
 .card-title {
     height: auto;
 }
