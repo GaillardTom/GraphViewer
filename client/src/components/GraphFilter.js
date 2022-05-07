@@ -35,8 +35,8 @@ export default function Graph({ location, onChange, onClick }) {
 
                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
                             
-                            <MenuItem value={location}>{location}</MenuItem>
-                            <MultipleLocations props={location} onChange={onChange} />
+                            
+                            <MultipleLocations props={location} onChange={onChange}/>
                             <Button variant="contained" onClick={() => {
                                 localStorage.setItem('graphLocation', location.graphLocation)
                                 onClick()
