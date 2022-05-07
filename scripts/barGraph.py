@@ -14,7 +14,7 @@ global path
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
-TYPE = "bar"
+TYPE = "Age group in " + FILTER
 def ConnToDb():
     myClient = pymongo.MongoClient(
         "mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true"

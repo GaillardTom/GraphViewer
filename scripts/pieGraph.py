@@ -10,7 +10,7 @@ import datetime
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
-TYPE = "pie"
+TYPE = "Gender difference in " + FILTER
 global path
 def ConnToDb():
     myClient = pymongo.MongoClient(
