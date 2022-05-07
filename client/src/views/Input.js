@@ -29,7 +29,7 @@ export default function Input() {
         const type = localStorage.getItem('type')
 
         if(type === 'line'){ 
-            const req = await axios.post('http://localhost:8080/graph/barGraph',{"filter": location, "title": title})
+            const req = await axios.post('http://localhost:8080/graph/lineGraph',{"filter": location, "title": title})
             console.log('req: ', req);
             if(req.status === 200){ 
                 console.log(req.data)
@@ -39,6 +39,7 @@ export default function Input() {
 
                 localStorage.setItem('graphLocation', path)
                 navigate('/graphimage')
+
             }
         }else if (type ===  'pie'){ 
             const req = await axios.post('http://localhost:8080/graph/pieGraph', {"filter": location, "title": title})
@@ -52,8 +53,20 @@ export default function Input() {
                 localStorage.setItem('graphLocation', path)
                 navigate('/graphimage')
             }
-        }else if (type === 'barh'){ 
+        }else if (type === 'bar'){ 
             const req = await axios.post('http://localhost:8080/graph/columnGraph', {"filter": location, "title": title})
+            console.log('req: ', req);
+            if(req.status === 200){ 
+                console.log(req.data.data)
+                const graphID = req.data.data
+                const path = `/${graphID}.png`
+                console.log('path: ', path);
+
+                localStorage.setItem('graphLocation', path)
+                navigate('/graphimage')
+            }
+        }else if(type ==='barh'){ 
+            const req = await axios.post('http://localhost:8080/graph/barGraph', {"filter": location, "title": title})
             console.log('req: ', req);
             if(req.status === 200){ 
                 console.log(req.data.data)
@@ -136,7 +149,7 @@ return (
     <div className="App">
         <div className="App-full">
             <div className="Nav-bar-Logout">
-                <button className="btn btn-primary" onClick={returnToHome} >Back</button>
+                <button className="btn btn-primary" onClick={returnToHome}> Back</button>
             </div>
             <div className="titleGraph">
                 <h1 id="titleGraphName" className="titleGraphName"></h1>
