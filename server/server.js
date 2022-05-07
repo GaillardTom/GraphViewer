@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express')
 const cors = require('cors');
-const { connectCallback, CreateUser, Connect, connectToUsersDB } = require('./database');
+const { connectCallback, CreateUser, Connect, connectToUsersDB, GetAllLocations} = require('./database');
 var jwt = require('jsonwebtoken');
 const {CheckJWT} = require('./middlewares/auth');
 var morgan = require('morgan');
@@ -9,12 +9,14 @@ const services = require('./services/services');
 const bodyParser = require('body-parser');
 const app = express();
 const graphRoute = require('./graph_routes/graph_routes')
+const path = require('path')
 
 
 
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 
 
@@ -117,7 +119,17 @@ app.post('/login', async(req,res)=> {
 app.use(CheckJWT)
 //GRAPH ROUTE 
 app.use('/graph', graphRoute)
+app.get('/locations', async(req,res)=> {
+    
+    const ans = await GetAllLocations()
+    if(ans){ 
+        res.status(200).send(ans)
 
+    }else{ 
+        res.status(400).send("Error")
+
+    }
+})
 
 const PORT = 8080;
 connectCallback(() => {

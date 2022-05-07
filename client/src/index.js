@@ -10,6 +10,8 @@ import Upload from './views/Upload';
 import NotFound from './views/NotFound';
 import Protected from './views/Protected';
 import Graph from './views/Graph';
+import Input from './views/Input';
+import GraphImage from './views/GraphImage';
 export default function App() {
 
 
@@ -24,7 +26,9 @@ export default function App() {
             <Route path='graphs' element={<Graph/>} />
             <Route path="protected" element={<Protected />} />
             <Route path="upload" element={<Upload />} />
+            <Route path="input" element={<Input />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="graphimage" element={<GraphImage />} />
           </Route>
         </Routes>
       </AuthGuard>

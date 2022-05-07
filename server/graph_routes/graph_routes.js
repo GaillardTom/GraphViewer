@@ -5,6 +5,7 @@ const services = require('../services/services')
 const { GetUserIDWithJWT } = require('../middlewares/auth')
 const { GetGraphLocation, GetAllGraph, DeleteGraphOfUser,GetGraphsByType } = require('../database')
 const { spawn } = require('child_process');
+const {rm} = require('fs/promises')
 
 //const defaults = { cwd: "..\\scripts" }
 
@@ -127,11 +128,15 @@ graph.post('/barGraph', async(req, res) => {
         console.log('title: ', title);
         // spawn new child process to call the python script
         const python = await spawn('python', ['..\\scripts\\barGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
+        //res.status(200).send('CREATED')
         //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
         // collect data from script
         python.stdout.on('data', function (data) {
                 console.log('data: ', data.toString());
+                const graphID=data.toString().replace('\r', "").replace('\n', "");
+                res.status(200).json({data: graphID})
+
+                console.log('Test: ', data);
          console.log('Pipe data from python script ...');
         })
         //dataToSend = data.toString();
@@ -156,19 +161,23 @@ graph.post('/barGraph', async(req, res) => {
  */
 graph.post('/columnGraph', async(req, res) => {
         var dataToSend;
-        const filter = req.body.filter
+        const filter = req.body.filter;
         console.log('filter: ', filter);
         const user = await GetUserIDWithJWT(req.header('token'))
         console.log('user: ', user);
-        const title = req.body.title
+        const title = req.body.title;
         console.log('title: ', title);
         // spawn new child process to call the python script
         const python = await spawn('python', ['..\\scripts\\columnGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
+        //res.status(200).send('CREATED')
         //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
         // collect data from script
         python.stdout.on('data', function (data) {
                 console.log('data: ', data.toString());
+                const graphID=data.toString().replace('\r', "").replace('\n', "");
+                res.status(200).json({data: graphID})
+
+                console.log('Test: ', data);
          console.log('Pipe data from python script ...');
         })
         //dataToSend = data.toString();
@@ -200,13 +209,18 @@ graph.post('/lineGraph', async(req, res) => {
         console.log('title: ', title);
         // spawn new child process to call the python script
         const python = await spawn('python', ['..\\scripts\\lineGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
         //TODO MAKE THE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
         // collect data from script
+        //var graphID = ''
         python.stdout.on('data', function (data) {
                 console.log('data: ', data.toString());
+                const graphID=data.toString().replace('\r', "").replace('\n', "");
+                res.status(200).json({data: graphID})
+
+                console.log('Test: ', data);
          console.log('Pipe data from python script ...');
         })
+
         //dataToSend = data.toString();
 });
 
@@ -237,11 +251,15 @@ graph.post('/pieGraph', async(req, res) => {
         console.log('title: ', title);
         // spawn new child process to call the python script
         const python = await spawn('python', ['..\\scripts\\pieGraph.py', filter, title, user]);
-        res.status(200).send('CREATED')
+        //res.status(200).send('CREATED')
         //TODO MAKE THNE SCRIPT RETURN MAYBE THE OBJECT ID OF THE GRAPH SO THAT WE CAN DISPLAY IT ON THE FRONTEND JUST AFTER
         // collect data from script
         python.stdout.on('data', function (data) {
                 console.log('data: ', data.toString());
+                const graphID=data.toString().replace('\r', "").replace('\n', "");
+                res.status(200).json({data: graphID})
+
+                console.log('Test: ', data);
          console.log('Pipe data from python script ...');
         })
         //dataToSend = data.toString();
@@ -270,12 +288,11 @@ graph.delete('/:id', async function (req, res) {
         const ids = ObjectId(req.params.id);
         const userID = await GetUserIDWithJWT(req.header('token'))
         if (ids) {
-
                 // CREATE A FUNCTION THAT TAKES THIS AND PUT IT IN DB NO DATABASE ON ROUTES GADDEM FAIS 30 FOIS JE LE DIT CALISS
                 const result = await DeleteGraphOfUser(ids, ObjectId(userID))
                 if(result){ 
+                        await rm(`../server/public/${req.params.id}.png`)
                         res.send('Graph deleted').status(200);
-
                 }else {
                         res.send('Graph not found').status(404);
                 }              

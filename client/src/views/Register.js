@@ -59,13 +59,12 @@ export default function Register() {
                 if (response.status === 200){ 
                     setSubmitted(true);
                     setError(false);
-                    alert('Logged in')
                     navigate("/login");
                 }
             }).catch(function(response){ 
                 if(response !== 200)
                 { 
-                    console.log("USERANME TAKEN");
+                    console.log("USERNAME TAKEN");
                     setSubmitted(false);
                     setError(true)
                     userNameTaken()
@@ -107,25 +106,32 @@ export default function Register() {
             </div>
         )
     }
+    const Back = () => { 
+        navigate('/')
+    }
 
     return (
         <div className="App">
              <header className="App-full">
 
-            <div>
-                <h1>User Registration</h1>
-            </div>
+            
+             <div className='Nav-bar-Logout'>
+                    <Button variant="contained" onClick={Back}>Back</Button>
 
+                </div>
 
             {/* Calling to the methods */}
-            <div className="messages">
-                {errorMessage()}
-                {successMessage()}
-            </div>
+            
 
-            <form>
+            <div className='RegisterForm'>
                 {/* Labels and inputs for form data */}
-
+                <div>
+                    <h1>User Registration</h1>
+                </div>
+                <div className="messages">
+                    {errorMessage()}
+                    {successMessage()}
+                </div>
                 <div className="register">
                     <label className="label">Username</label>
                     <input onChange={handleUsername} className="input"
@@ -156,12 +162,12 @@ export default function Register() {
                         value={confirmPassword} type="password" />
                 </div>
                 <div className="register">
-                    <Button onClick={handleSubmit} className="Submit">
+                    <Button onClick={handleSubmit} variant="contained" className="Submit">
                         Submit
                     </Button>
                 </div>
 
-            </form>
+            </div>
             </header>
 
         </div>

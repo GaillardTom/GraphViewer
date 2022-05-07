@@ -32,7 +32,7 @@ def InsertToGraphDB():
     coll = mydb['graph']
     test = coll.insert_one({"userID": USERID, "title": TITLE, "date": e, "type": TYPE})
     print(test.inserted_id)
-    path = f'../server/uploads/{test.inserted_id}.png'
+    path = f'/{test.inserted_id}.png'
     return ObjectId(test.inserted_id), coll
     
 
@@ -55,9 +55,9 @@ def makePie(doc, userID, coll):
     plt.bar(label, ypoints)
     plt.xticks(rotation=45)
     plt.title(f"{TITLE} \n{FILTER}")
-    
+    plt.tight_layout(pad=1)
     updateDoc = coll.update_one({"_id": userID}, {"$set": {"graphLocation": path}})
-    plt.savefig(path)
+    plt.savefig("../server/public"+path)
 
 def main(): 
     ConnToDb()

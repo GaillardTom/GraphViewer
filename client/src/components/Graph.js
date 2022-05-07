@@ -3,10 +3,9 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-
-
+import Button from '@mui/material/Button';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -18,9 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-
-
-export default function Graph({ props, onDelete }) {
+export default function Graph({ props, onDelete, onClick}) {
 
     return (
         
@@ -30,14 +27,17 @@ export default function Graph({ props, onDelete }) {
                 <Grid className='GraphGrid' container spacing={2} columns={5}>
                     <Grid item xs={5}>
                         <Item>
+                            <img width="350" height="250" src={`http://localhost:8080/static${props.graphLocation}`}></img>
                             {props.title}<span className="tab"></span>
                             {props.type}<span className="tab"></span>
                             {props.date}<span className="tab"></span>
-                            <DeleteIcon onClick={() => onDelete(props._id)} style={{ color: 'black', cursor: 'pointer' }} />
-                        </Item>
-                        
-                        
+                            <Button variant="contained" onClick={()=> { 
+                                localStorage.setItem('graphLocation', props.graphLocation)
+                                onClick(props.graphLocation)
                             
+                            }}>Open </Button><span className="tab"></span>
+                            <DeleteIcon onClick={() => onDelete(props._id)} style={{ color: 'gray', cursor: 'pointer' }} />
+                        </Item>
                     </Grid>
                 </Grid>
 

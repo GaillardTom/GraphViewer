@@ -2,22 +2,52 @@
     text-align: center;
     background-image: url("../src/assets/placeholder.png");
     background-size: cover;
+    width: 100%;
 }
 .register{ 
-    color:rgb(1, 29, 50);
+    color: rgb(1, 29, 50);
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: left;
+    border-bottom: 100px;
+    gap: 10%;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: auto;
+    float: left;    color: rgb(1, 29, 50);
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: left;
+    border-bottom: 100px;
+    gap: 10%;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: auto;
+    float: left;
+
 }
 .App-logo {
     height: 40vmin;
     pointer-events: none;
 }
+.GraphPage{ 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    /*background-image: url("../src/assets/placeholder.png");*/
+    background-size: cover;
 
+
+}
 .App-full {
     /* background-color: #856727; */
-    min-height: 100vh;
+    min-height: 120vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,7 +55,6 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
-
 .App-header {
     min-height: 25vh;
     display: flex;
@@ -34,8 +63,29 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-}
 
+}
+.RegisterForm{ 
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+    border-bottom: 10px;
+    gap: 4vmin;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: 0vmin;
+    float:right;
+    align-items: flex-end;
+}
+.Back{ 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .App-body {
     min-height: 75vh;
     display: flex;
@@ -46,9 +96,16 @@
 }
 .CreateNewButton{ 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: left;
+    margin-bottom: 5%;
+    gap: 10%;
+    width: 500px;
+    white-space: nowrap;
+    position: relative;
+
+
 }
 .tab{ 
     display: inline-block;
@@ -58,19 +115,35 @@
     display: flex;
     flex-direction: row;
     align-items: left;
-    justify-content: left;
+    justify-content: space-between;
     font-size: calc(10px + 2vmin);
     color: white;
     margin-left: 2em;
 }
+.Nav-bar-Logout{ 
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin: 1% 5% 1% 5%;    /*gap: 90%;*/
+    justify-content: space-between;  
+    position: fixed;  
+    bottom: 90%;
+}
+
 
 .App-link {
     color: #61dafb;
 }
+.GraphViewergraphsh1{ 
+    color: black;
+    white-space: nowrap;
 
+}
 .Graph{ 
     cursor: pointer;
-
+    word-wrap: none;
 }
 /* Navigation link colors */
 .Log{ 
@@ -119,6 +192,8 @@ a:hover {
     width: 45%;
     padding: 5px;
     border-radius: 0.5em;
+    color: black;
+    white-space: nowrap;
 }
 .NoGraphText{ 
     height: 200px;
@@ -143,6 +218,13 @@ a:hover {
     top: 10px;
     position: absolute;
 }
+.cardHolder{ 
+    top:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200vh;
+}
 
 .App-header {
     background-color: #61dafb;
@@ -151,21 +233,14 @@ a:hover {
     min-height: 2em;
     min-width: 75vw;
     top: 100px;
-    position: absolute;
-}
-
-.card {
-  
-
-    border-radius: 0.5em;
-    opacity: 0.95;
-    min-height: 16em;
-    min-width: 300px;
-    top: 250px;
-    position: absolute;
     
+    position: absolute;
+}
+.error{ 
+    color:red;
 }
 
+<<<<<<< HEAD
 #card1 {
     border-radius: 0.5em;
     opacity: 0.95;
@@ -215,10 +290,30 @@ a:hover {
     right: 25%;
     cursor: pointer;
 }
+=======
+.card-body {
+    display: flex;
+    padding: 0px;
+    position: relative;
+    flex-direction: column;
+    cursor: pointer;
+
+}
+>>>>>>> 1f3dded7348c4e8ce802b9e84b7b9a4ecf7f782c
 .card-title {
     height: auto;
 }
 .Submit{ 
     width: 250px;
     height: 200;
+}
+.Nav-bar-Back{ 
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    margin: 10px 10px 100px 10px;    
+
+    justify-content: space-between;  
 }

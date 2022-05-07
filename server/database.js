@@ -28,7 +28,7 @@ function connectToSalesCallback(callback) {
     salesClient.connect((error, res) => {
         if (error) {
             console.error('Could not connect to local db')
-            console.error(err);
+            console.error(error);
         } else {
             console.log('Connected successfully to local server');
             callback();
@@ -48,7 +48,6 @@ async function CreateUser(username, password, firstName, lastName) {
               password: hash,
               firstName: firstName,
               lastName: lastName,
-              graph: [],
             };
             await usersDatabase.collection('users').insertOne(user);
             return true;
@@ -101,6 +100,7 @@ async function Connect(username,password)
       }
     
 }
+
 async function FindUserByID(id){ 
     try{ 
         id = await ObjectId(id)
@@ -118,6 +118,7 @@ async function FindUserByID(id){
     }
     
 }
+
 async function DeleteGraphOfUser(graphID, userID){ 
 
     try{
@@ -137,6 +138,7 @@ async function DeleteGraphOfUser(graphID, userID){
 
 
 }
+
 async function AddGraphToUsers(username, graph){ 
 
     try{ 
@@ -173,12 +175,14 @@ async function GetGraphLocation(graphID, userID){
         return false
     }
 }
+
 async function GetGraphsByType(userID, type){ 
     userID = await ObjectId(userID)
     const userGraphs = await usersDatabase.collection('graph').find({userID: userID, type: type}).toArray()
     console.log(userGraphs)
     return userGraphs
 }
+
 async function GetAllGraph(userID){ 
     try { 
         
@@ -190,6 +194,13 @@ async function GetAllGraph(userID){
         console.error(e);
         return false
     }
+}
+async function GetAllLocations(){ 
+    const distinctValues = await salesDatabase.collection('sales').distinct("storeLocation");
+    console.log('distinctValues: ', distinctValues);
+    return distinctValues
+
+
 }
 module.exports = {
     connectCallback: connectToSalesCallback,
@@ -204,5 +215,6 @@ module.exports = {
     FindUser,
     GetAllGraph,
     DeleteGraphOfUser,
-    GetGraphsByType
+    GetGraphsByType,
+    GetAllLocations
 }
