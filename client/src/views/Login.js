@@ -81,7 +81,7 @@ export default function Logging() {
                     {handleErrors()}
                 </div>
                 <div className="m-4">
-                    <label>Username:</label>
+                    <label id="reg">Username:</label>
                     <input
                         onChange={handleUsername}
                         value={username}
@@ -92,7 +92,7 @@ export default function Logging() {
                     />
                 </div>
                 <div className="m-4">
-                    <label>Password:</label>
+                    <label id="reg">Password:</label>
                     <input
                         id="password"
                         onChange={handlePassword}
@@ -103,9 +103,7 @@ export default function Logging() {
                         className="m-4"
                         placeholder="Enter password"
                     />
-                    <p className="forgot-password text-right">
-                        Forgot <a href="#">password?</a>
-                    </p>
+                    
                 </div>
                 <div className="m-4">
                     <button type="submit" className="btn btn-primary" onClick={handleSubmit}>

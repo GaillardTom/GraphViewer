@@ -66,44 +66,25 @@ export default function Uploads() {
 justifyContent="center" alignItems="center" container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 2 }} columns={2}>
                         
                     <div className="">
-                        <Grid>
-                            
-                                
-                              <Img className="card-body" onClick={() => sendToInput('bar')}  src={BarPic} alt="Bar Graph"></Img>
-                                
-
-                            
+                        <Grid>                             
+                              <Img className="card-body" onClick={() => sendToInput('bar')}  src={BarPic} alt="Bar Graph"></Img>                                                     
                         </Grid>
                     </div>
-                        <Grid>
-                          
-
+                        <Grid>                       
                                 <div className="card4">
-
                                       <Img className="card-body" onClick={() => sendToInput('pie')} src={PiePic} alt="Pie Graph">
-                                      </Img>
-
-                                
+                                      </Img>                               
                                 </div>
-
                         </Grid>
                         <Grid>
-
                                 <div className="card3">
                                     <Img className="card-body"  onClick={() => sendToInput('line')} src={LinePic} alt="Line Graph">
                                     </Img>
-
-
                                 </div>
                         </Grid>
                         <Grid>
                             <div className='card2'>
                                 <Img className="card-body" onClick={() => sendToInput('barh')} src={BarhPic} alt="Barh Graph">
-
-
-
-
-
                                 </Img>
                             </div>
 

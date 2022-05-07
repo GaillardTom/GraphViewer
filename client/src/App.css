@@ -153,7 +153,7 @@
     color: #61dafb;
 }
 .GraphViewergraphsh1{ 
-    color: black;
+    color: white;
     white-space: nowrap;
 
 }
@@ -179,6 +179,9 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+}
+#reg{
+    color: #FFF;
 }
 a {
     color: #FFF;
