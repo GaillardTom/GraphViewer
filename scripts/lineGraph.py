@@ -10,7 +10,7 @@ import datetime
 FILTER = sys.argv[1]
 TITLE = sys.argv[2]
 USERID = ObjectId(sys.argv[3])
-TYPE = "line"
+TYPE = "Satisfaction per gender in " + FILTER
 global path
 
 def ConnToDb():

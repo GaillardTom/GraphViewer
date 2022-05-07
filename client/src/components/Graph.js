@@ -19,6 +19,10 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Graph({ props, onDelete, onClick}) {
 
+    function addZero(i) {
+        if (i < 10) {i = "0" + i}
+        return i;
+      }
     return (
         
         <div className="Card">
@@ -30,7 +34,7 @@ export default function Graph({ props, onDelete, onClick}) {
                             <img width="350" height="250" src={`http://localhost:8080/static${props.graphLocation}`}></img>
                             {props.title}<span className="tab"></span>
                             {props.type}<span className="tab"></span>
-                            {props.date}<span className="tab"></span>
+                            {new Date(props.date).toDateString() + " " + new Date(props.date).getHours() + ":" + addZero(new Date(props.date).getMinutes()) + ":" + addZero(new Date(props.date).getSeconds())}<span className="tab"></span>
                             <Button variant="contained" onClick={()=> { 
                                 localStorage.setItem('graphLocation', props.graphLocation)
                                 onClick(props.graphLocation)

@@ -10,7 +10,7 @@ function Home() {
             <header className="App-full">
                 
                 <h1 className="m-4">
-                <div className="GraphViewergraphsh1">
+                <div className="GraphViewergraphsh1" >
                     Welcome to Graph Viewer.
                     
                 </div>

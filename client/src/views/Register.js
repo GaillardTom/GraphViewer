@@ -59,6 +59,7 @@ export default function Register() {
                 if (response.status === 200){ 
                     setSubmitted(true);
                     setError(false);
+                    alert('User created successfully');
                     navigate("/login");
                 }
             }).catch(function(response){ 
@@ -125,38 +126,38 @@ export default function Register() {
 
             <div className='RegisterForm'>
                 {/* Labels and inputs for form data */}
-                <div>
+                <div id="reg">
                     <h1>User Registration</h1>
                 </div>
                 <div className="messages">
                     {errorMessage()}
                     {successMessage()}
                 </div>
-                <div className="register">
+                <div id="reg" className="register">
                     <label className="label">Username</label>
                     <input onChange={handleUsername} className="input"
                         value={username} type="text" />
                 </div>
 
-                <div className="register">
+                <div id="reg" className="register">
                     <label className="label">First Name</label>
                     <input onChange={handleName} className="input"
                         value={name} type="text" />
                 </div>
-                <div className="register">
+                <div id="reg" className="register">
 
                     <label className="label">Last Name</label>
                     <input onChange={handleLastName} className="input"
                         value={lastName} type="text" />
 
                 </div>
-                <div className="register">
+                <div id="reg" className="register">
 
                     <label className="label">Password</label>
                     <input onChange={handlePassword} className="input"
                         value={password} type="password" />
                 </div>
-                <div className="register">
+                <div id="reg" className="register">
                     <label className='label'>Confirm Password</label>
                     <input onChange={confirmPass} className="input"
                         value={confirmPassword} type="password" />
