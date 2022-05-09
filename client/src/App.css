@@ -242,7 +242,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 200vh;
+    min-height: 170vh;
 }
 
 .App-header {
