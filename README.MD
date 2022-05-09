@@ -3,8 +3,17 @@ Sacha and Tom project built on python, node, express and React connected to a Mo
 
 Installation:
 
-    -Have a mongoDB instance on your machine and add the data within a collection in it 
+    -Have a mongoDB instance on your machine and add the data within a collection named sample_supplies in it 
     -Make the .env file in consequence
+    
+    
+Contents of .env: 
+
+    -DB_CONNECTION_STRING=mongodb://localhost:27017
+    -DB_USERS_CONNSTRING=mongodb://localhost:27017
+    -DB_NAME=sample_supplies
+    -DB_NAME2=graphViewerUsers
+    -SECRET=[YOURSECRETMESSAGE]
     
 Instructions (back-end):
 
