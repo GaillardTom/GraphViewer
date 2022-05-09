@@ -31,7 +31,11 @@ export default function Graph({ props, onDelete, onClick}) {
                 <Grid className='GraphGrid' container spacing={2} columns={5}>
                     <Grid item xs={5}>
                         <Item>
+<<<<<<< HEAD
                             <img width="250" height="160" src={`http://localhost:8080/static${props.graphLocation}`}></img>
+=======
+                            <img width="200" height="150" src={`http://localhost:8080/static${props.graphLocation}`}></img>
+>>>>>>> 4f597d4ce36917b6ab41ed569917da22ffda0f05
                             {props.title}<span className="tab"></span>
                             {props.type}<span className="tab"></span>
                             {new Date(props.date).toDateString() + " " + new Date(props.date).getHours() + ":" + addZero(new Date(props.date).getMinutes()) + ":" + addZero(new Date(props.date).getSeconds())}<span className="tab"></span>
